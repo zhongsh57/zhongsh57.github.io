@@ -180,6 +180,24 @@
 <h2 id="DOM-Document-Objeci-Model-文档对象模型"><a href="#DOM-Document-Objeci-Model-文档对象模型" class="headerlink" title="DOM Document Objeci Model 文档对象模型"></a>DOM Document Objeci Model 文档对象模型</h2><p>文档对象模型（DOM，Document Object Model）是一个应用编程接口（API），用于在 HTML 中使<br>用扩展的 XML。DOM 将整个页面抽象为一组分层节点。HTML 或 XML 页面的每个组成部分都是一种<br>节点，包含不同的数据 但是这个时候DOM每个浏览器都有着自己的想法 这就让开发人员头疼 一个HTML界面 在不同浏览器的工作效果是不一样的 这个时候W3C 又来制定标准啦万维网联盟（W3C，World Wide Web<br>Consortium）</p>
 <h2 id="BOM浏览器对象模型"><a href="#BOM浏览器对象模型" class="headerlink" title="BOM浏览器对象模型"></a>BOM浏览器对象模型</h2><p>总体来说，BOM 主要针对浏览器窗口和子窗口（frame），不过人们通常会把任何特定于浏览器的<br>扩展都归在 BOM的范畴内。比如，下面就是这样一些扩展：<br> 弹出新浏览器窗口的能力；<br> 移动、缩放和关闭浏览器窗口的能力；<br> navigator 对象，提供关于浏览器的详尽信息；<br> location 对象，提供浏览器加载页面的详尽信息；<br> screen 对象，提供关于用户屏幕分辨率的详尽信息；<br> performance 对象，提供浏览器内存占用、导航行为和时间统计的详尽信息；<br> 对 cookie 的支持；<br> 其他自定义对象，如 XMLHttpRequest 和 IE 的 ActiveXObject</p>
 <h2 id="第一篇JS记录-小结一下"><a href="#第一篇JS记录-小结一下" class="headerlink" title="第一篇JS记录 小结一下"></a>第一篇JS记录 小结一下</h2><p>JavaScript 是一门用来与网页交互的脚本语言，包含以下三个组成部分。<br> ECMAScript：由 ECMA-262 定义并提供核心功能。<br> 文档对象模型（DOM）：提供与网页内容交互的方法和接口。<br> 浏览器对象模型（BOM）：提供与浏览器交互的方法和接口。</p>
+<h2 id="HTML中的JS-嵌入问题以及用法"><a href="#HTML中的JS-嵌入问题以及用法" class="headerlink" title="HTML中的JS 嵌入问题以及用法"></a>HTML中的JS 嵌入问题以及用法</h2><p>将 JavaScript 插入 HTML 的主要方法是使用 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p> async ：可选。表示应该立即开始下载脚本，但不能阻止其他页面动作，比如下载资源或等待其<br>他脚本加载。只对外部脚本文件有效。<br> charset ：可选。使用 src 属性指定的代码字符集。这个属性很少使用，因为大多数浏览器不<br>在乎它的值。<br> crossorigin ：可选。配置相关请求的CORS（跨源资源共享）设置。默认不使用CORS。 crossorigin=<br>“anonymous” 配置文件请求不必设置凭据标志。 crossorigin=”use-credentials” 设置凭据<br>标志，意味着出站请求会包含凭据。<br> defer ：可选。表示脚本可以延迟到文档完全被解析和显示之后再执行。只对外部脚本文件有效。<br>在 IE7 及更早的版本中，对行内脚本也可以指定这个属性。<br> integrity ：可选。允许比对接收到的资源和指定的加密签名以验证子资源完整性（SRI，<br>Subresource Integrity）。如果接收到的资源的签名与这个属性指定的签名不匹配，则页面会报错，<br>脚本不会执行。这个属性可以用于确保内容分发网络（CDN，Content Delivery Network）不会提<br>供恶意内容。</p>
+<h3 id="crossorigin属性"><a href="#crossorigin属性" class="headerlink" title="crossorigin属性"></a>crossorigin属性</h3><h4 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h4><p>如果两个页面的协议，端口和域名都相同，则两个页面具有相同的源（origin）。<br>同源策略是一种安全机制，它限制了非同源脚本之间的交互方式。<br>例如，在使用XMLHttpRequest或 <img> 标签时，会受到同源策略的约束。</p>
+<h4 id="跨域资源共享-CORS"><a href="#跨域资源共享-CORS" class="headerlink" title="跨域资源共享 CORS"></a>跨域资源共享 CORS</h4><p>跨域资源共享 Cross-Origin Resource Sharing (CORS)，通过在服务器端设置 Access-Control-Allow-Origin 响应头，也就是在服务端  通过给资源加上响应header  指定允许域名访问当前资源 也可以设置* 任意资源<br>但是如果服务端没有加上Access-Control-Allow-Origin 但是本地还是使用的crossorigin属性 那么就会报错</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Access to Script at <span class="string">&#x27;http://127.0.0.1:8081/index.js&#x27;</span> <span class="keyword">from</span> origin <span class="string">&#x27;http://127.0.0.1:8080&#x27;</span> has been blocked by CORS policy: </span><br><span class="line">No <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span> header is present on the requested resource. </span><br><span class="line">Origin <span class="string">&#x27;http://127.0.0.1:8080&#x27;</span> is therefore not allowed access.</span><br></pre></td></tr></table></figure>
+<br>
+参考: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a45c9d089c93">script的crossorigin属性</a>
+<br>
+这个时候添加crossorigin属性可以让浏览器获得更多的error信息 （如果是error 而且服务器添加了响应头Access-Control-Allow-Origin 的情况下） 否则只有简单的 error信息 看不到详细日志
+
+<h3 id="defer和async属性"><a href="#defer和async属性" class="headerlink" title="defer和async属性"></a>defer和async属性</h3><p>defer<br>就是延时加载 告诉浏览器 立即加载 但是要延迟执行 他是在loaded事件执行之前 但是在现实生活中 执行顺序也是不一定的 所以应该只使用一个defer标签</p>
+<p>anync<br>就是异步加载 告诉浏览器 下载之后立即执行 但是 因为是异步执行 所以两个文件开始加载的顺序假如是一前一后 但是执行的顺序可能是 后面的文件先下载好 执行之后 前面的文件再完成下载进行执行  所以这个时候如果两个文件有依赖性 那么就会出现问题</p>
+<p><br>下面来一些非常直观的图</br></p>
+<img src="/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/defer.png" class="">
+<img src="/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/async.png" class="">
+<p>参考： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiasm/p/7683930.html">浅谈defer和async</a></p>
 
       
 
