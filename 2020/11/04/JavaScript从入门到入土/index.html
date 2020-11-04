@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://example.com/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/defer.png">
 <meta property="og:image" content="http://example.com/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/async.png">
 <meta property="article:published_time" content="2020-11-04T01:29:27.000Z">
-<meta property="article:modified_time" content="2020-11-04T09:59:25.811Z">
+<meta property="article:modified_time" content="2020-11-04T12:59:09.750Z">
 <meta property="article:author" content="Zhongsihui">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/defer.png">
@@ -203,6 +203,7 @@
 <img src="/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/defer.png" class="">
 <img src="/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/async.png" class="">
 <p>参考： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiasm/p/7683930.html">浅谈defer和async</a></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>也就是说 在一般情况下 浏览器会默认顺序去解析html文档 解析到script  会等他加载并且执行完毕 继续进行文档解析  这个时候加上async  就是告诉浏览器 你可以先不管他 交给后<br>台去加载 你先解析着你的文档 然后我这里解析好了 就告诉你一声（promise）然后你就可以来执行我的脚本啦<br>defer就是告诉浏览器 别管 碰到我就继续解析文档 </p>
 
       
 
@@ -234,6 +235,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          CDN概念学习
+        
+      </div>
+    </a>
   
   
     <a href="/2020/11/03/First-Page/" id="article-nav-older" class="article-nav-link-wrap">
