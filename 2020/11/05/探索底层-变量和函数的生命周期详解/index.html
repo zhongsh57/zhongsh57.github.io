@@ -6,21 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>CDN概念学习 | Dream Starts Here</title>
+  <title>探索底层-变量和函数的生命周期详解 | Dream Starts Here</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么叫DNSDNS就是域名解析器  把域名解析成ip地址 通过ip地址进行计算机的互联  核心概念就是 我们现在的互联网 就和书上讲的一样 由计算机连成的网络 一台计算机要连接另外一台计算机 需要知道另外一台计算机在哪里 我才能去找到他 拿到我想要的东西 详情请参考 阮一峰互联网协议入门我们其中的DNS 就是通过我们人好识别的域名 比如说www.baidu.com 知道他是百度  他的资源放在一个">
+  <meta name="description" content="从红宝书里面看到var 和let变量 突然好奇他们的生命周期和我们常学的C和C++有什么区别  查找了网上博客 现在进行总结 变量和函数的生命周期基本过程当引擎访问变量的时候，它们的生命周期包括下面几个阶段： 1.声明阶段：在作用域中注册一个变量2.初始化阶段：分配内存，给作用域中的变量创建绑定。在这个阶段，变量自动地被初始化为undefined3.赋值阶段：给已经初始化过的变量赋值声明变量就是告">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CDN概念学习">
-<meta property="og:url" content="http://example.com/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="探索底层-变量和函数的生命周期详解">
+<meta property="og:url" content="http://example.com/2020/11/05/%E6%8E%A2%E7%B4%A2%E5%BA%95%E5%B1%82-%E5%8F%98%E9%87%8F%E5%92%8C%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Dream Starts Here">
-<meta property="og:description" content="什么叫DNSDNS就是域名解析器  把域名解析成ip地址 通过ip地址进行计算机的互联  核心概念就是 我们现在的互联网 就和书上讲的一样 由计算机连成的网络 一台计算机要连接另外一台计算机 需要知道另外一台计算机在哪里 我才能去找到他 拿到我想要的东西 详情请参考 阮一峰互联网协议入门我们其中的DNS 就是通过我们人好识别的域名 比如说www.baidu.com 知道他是百度  他的资源放在一个">
+<meta property="og:description" content="从红宝书里面看到var 和let变量 突然好奇他们的生命周期和我们常学的C和C++有什么区别  查找了网上博客 现在进行总结 变量和函数的生命周期基本过程当引擎访问变量的时候，它们的生命周期包括下面几个阶段： 1.声明阶段：在作用域中注册一个变量2.初始化阶段：分配内存，给作用域中的变量创建绑定。在这个阶段，变量自动地被初始化为undefined3.赋值阶段：给已经初始化过的变量赋值声明变量就是告">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/cdn.png">
-<meta property="article:published_time" content="2020-11-04T12:57:20.000Z">
-<meta property="article:modified_time" content="2020-11-04T14:34:14.445Z">
+<meta property="article:published_time" content="2020-11-05T14:33:12.000Z">
+<meta property="article:modified_time" content="2020-11-05T14:55:01.853Z">
 <meta property="article:author" content="Zhongsihui">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/cdn.png">
   
     <link rel="alternative" href="/atom.xml" title="Dream Starts Here" type="application/atom+xml">
   
@@ -157,35 +155,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-CDN概念学习" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-探索底层-变量和函数的生命周期详解" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      CDN概念学习
+      探索底层-变量和函数的生命周期详解
     </h1>
   
 
         
-        <a href="/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-11-04T12:57:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-04</time>
+        <a href="/2020/11/05/%E6%8E%A2%E7%B4%A2%E5%BA%95%E5%B1%82-%E5%8F%98%E9%87%8F%E5%92%8C%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2020-11-05T14:33:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="什么叫DNS"><a href="#什么叫DNS" class="headerlink" title="什么叫DNS"></a>什么叫DNS</h1><p>DNS就是域名解析器  把域名解析成ip地址 通过ip地址进行计算机的互联  核心概念就是 我们现在的互联网 就和书上讲的一样 由计算机连成的网络 一台计算机要连接另外一台计算机 需要知道另外一台计算机在哪里 我才能去找到他 拿到我想要的东西 详情请参考 <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html">阮一峰互联网协议入门</a><br>我们其中的DNS 就是通过我们人好识别的域名 比如说<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 知道他是百度  他的资源放在一个计算机上 我们要找到那台计算机 然后告诉他我要搜个啥  找到这台计算机 DNS服务器会通过域名解析系统 将域名解析成ip地址供给我们的计算机去找（老婆）  域名解析的实现请参考<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/06/dns.html">DNS原理入门</a> 这里只需要知道 DNS负责把域名转换为 我们要去请求的ip地址</p>
-<p>为什么DNS会污染 这不是谁干的 而是运营商干的 比如github这种 “危险网站”  里面的个人博客 都要给你全部污染掉 这也是采用阿里 tx 这一些稳定的DNS服务器的原因</p>
-<h1 id="CDN粗解"><a href="#CDN粗解" class="headerlink" title="CDN粗解"></a>CDN粗解</h1><h2 id="CDN处于什么层面"><a href="#CDN处于什么层面" class="headerlink" title="CDN处于什么层面"></a>CDN处于什么层面</h2><p>现在的互联网 大多数包含了大量的静态内容 比如说你现在看到的博客 图片储存 js代码储存 这些静态内容是最耗费带宽的 也就是加载页面的速度 如果你的网站已经是全国知名的博客 如果所有慕名而来的小伙子都想看你的博客 那么他们都会输入你的域名 通过DNS服务器找到你放博客的计算机的ip地址 （顺着网线把你抓出来） 这样的话 你的服务器再强也顶不住 </p>
-<p>这个时候就需要提供一个缓存的阶段 俗话说人不能在一棵树上吊死 我们就把我们的内容存在其他的地方 当做是备份 （分布式储存） 这个备份会有很多份，我们当然是找到越近的服务器当然是越快啦。 综上所述 CDN就是<b>处于</b>在我们知道的人能理解的域名<b>和</b>最快的储存着我们资源的计算机的ip地址之间的东西啦 他和DNS是怎么样协作的呢</p>
-<p>首先 我们先提交域名 就像上文一样 先检查本地是不是有这个域名的ip缓存 如果没有 那么就去请求我们配置的DNS服务器 告诉他  3秒钟之内 我要这个域名的ip！(3s有点久) 然后DNS服务器开始解析域名 当他解析到这个域名的CNAME（重定向 将当前请求域名重定向到目标ip）记录时  他就会把这个请求丢给CNAME 记录的ip地址 这个时候的ip地址还不是你想要的  这个ip地址是那个万人迷网站在DNS服务器上 加上的CNAME 记录 指向CDN均衡负载系统 也就是说  你要请求我的万人迷网站 首先我会把你的第一次请求给CNAME指向的CDN均衡负载系统 这个均衡负载系统接收到你的请求 他就会看你发请求的ip  开始分析emmmmm 你这个人是深圳来的啊  然后就系统就把深圳最快的ip（CDN节点）返回给你自己 </p>
-<p>现在为止 你的第一次请求结束 你获得了一个深圳CDN节点ip</p>
-<p>接下来你就会拿着这个距离深圳最快的ip 去找（万人迷网站还没找到呢） 你找到了深圳的CDN节点 这个节点  如果是第一次访问 那么这个节点 就去访问那台储存着万人迷网站的  真正的主机 然后把数据储存在节点 然后把数据返回给你  接下来 每一次深圳周围的人想访问这个网站 这个CDN节点就相当于 一个备份啦 而且访问速度会很快 主机也不会疯狂被请求 CDN加速的意义就此体现</p>
-<h2 id="来张图"><a href="#来张图" class="headerlink" title="来张图"></a>来张图</h2><img src="/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/cdn.png" class="" title="This is an example image">
-<p>图片转载自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lianghe01/p/11132133.html">CDN详解</a></p>
+        <p>从红宝书里面看到var 和let变量 突然好奇他们的生命周期和我们常学的C和C++有什么区别  查找了网上博客 现在进行总结</p>
+<h1 id="变量和函数的生命周期基本过程"><a href="#变量和函数的生命周期基本过程" class="headerlink" title="变量和函数的生命周期基本过程"></a>变量和函数的生命周期基本过程</h1><p>当引擎访问变量的时候，它们的生命周期包括下面几个阶段：</p>
+<p>1.声明阶段：在作用域中注册一个变量<br>2.初始化阶段：分配内存，给作用域中的变量创建绑定。在这个阶段，变量自动地被初始化为undefined<br>3.赋值阶段：给已经初始化过的变量赋值<br>声明变量就是告诉js解释器 我现在这个名字就是个变量 但是这个时候还没初始化  对这个名字进行访问是报错的<br>初始化阶段之后就可以对这个变量进行访问了 这个时候分配了undefined 但是还是可以访问<br>赋值阶段 就是字面意思 把undefined 变成赋值的值</p>
+<h1 id="var变量的生命周期"><a href="#var变量的生命周期" class="headerlink" title="var变量的生命周期"></a>var变量的生命周期</h1><p>var变量的作用域是函数作用域 而不是块作用域 我们常见的C++ 就是块作用域 在一个函数里面所有的var  都会被一个叫（变量提升） 的 在函数作用域的开始阶段 所有的 不论是在哪里写的var 变量都会在作用域头进行声明和初始化 这个时候是undefined  经历了初始化 意味着可以访问 于是有了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">26</span>;</span><br><span class="line">&#125;</span><br><span class="line">foo(); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<p>输出undefined 和预想一样</p>
+<h1 id="let变量的生命周期"><a href="#let变量的生命周期" class="headerlink" title="let变量的生命周期"></a>let变量的生命周期</h1><p>let变量就是把声明和初始化解耦合了 同时 let的作用域是块作用域 所以在块作用域的开头 let 变量还是会进行声明  注意是声明 这个时候只有这个名字 但是没分配内存 这个时候的变量 被储存在称之为暂时性死区的地方 连undefined都不是 所以这个时候进行访问就会出错 当解释到 let a的时候 开始进行初始化为undefined 或者进行赋值 let a =10； 变量退出暂时性死区 下面是例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// console.log(number); // =&gt; Throws ReferenceError</span></span><br><span class="line"><span class="keyword">let</span> number;</span><br><span class="line"><span class="built_in">console</span>.log(number); <span class="comment">// =&gt; undefined</span></span><br><span class="line">number = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(number); <span class="comment">// =&gt; 5</span></span><br></pre></td></tr></table></figure>
+<p>输出 error 第二个输出5 和预期一样</p>
+<h1 id="函数的生命周期"><a href="#函数的生命周期" class="headerlink" title="函数的生命周期"></a>函数的生命周期</h1><p>函数在js里面 我理解也是一种变量 函数的声明 初始化 赋值 不论写在在父函数作用域的任何位置 都会被提升到一开始  所以任何时候都可以访问 就算是写在return 之后的函数 一个典型例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sumArray</span>(<span class="params">array</span>) </span>&#123;  </span><br><span class="line">  <span class="keyword">return</span> array.reduce(sum);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不会报错 进行正常输出</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>let 和 var  就是在各自的作用域进行了 声明和初始化的解耦合 理解这两个概念很重要<br>参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/mike_chen2stockings/article/details/79577062">生命周期</a></p>
 
       
 
@@ -200,7 +202,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/NET相关//" class="article-tag-list-link color1">NET相关</a>
+        			<a href="/categories/js//" class="article-tag-list-link color3">js</a>
         		</li>
       		
 		</ul>
@@ -218,18 +220,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/11/05/%E6%8E%A2%E7%B4%A2%E5%BA%95%E5%B1%82-%E5%8F%98%E9%87%8F%E5%92%8C%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%A6%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          探索底层-变量和函数的生命周期详解
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript从入门到入土-历史</div>
+    <a href="/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CDN概念学习</div>
       <i class="icon-circle-right"></i>
     </a>
   
