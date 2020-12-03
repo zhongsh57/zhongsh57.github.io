@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Dream Starts Here</title>
+  <title>数据结构与算法折磨王--图初步 | Dream Starts Here</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Dream Starts Here">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+  <meta name="description" content="今天数据结构老师给了图 这里总结一下自己完全不会的东西 - - Valid BFS这一题意思就是 给定一系列的边的父亲和儿子节点 按照顺序 然后给定了一串序列  要判定当前序列是不是按照BFS输出  重点是 这里的BFS不是我们常说的二叉树的BFS 这里的是  我们首先取出这个队列的头 然后这个头的两个子节点 我们按照任意的顺序 push到这个队列里面 注意 这里重点是任意的顺序 而不是我们常说的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法折磨王--图初步">
+<meta property="og:url" content="http://example.com/2020/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%8A%98%E7%A3%A8%E7%8E%8B-%E5%9B%BE%E5%88%9D%E6%AD%A5/index.html">
 <meta property="og:site_name" content="Dream Starts Here">
+<meta property="og:description" content="今天数据结构老师给了图 这里总结一下自己完全不会的东西 - - Valid BFS这一题意思就是 给定一系列的边的父亲和儿子节点 按照顺序 然后给定了一串序列  要判定当前序列是不是按照BFS输出  重点是 这里的BFS不是我们常说的二叉树的BFS 这里的是  我们首先取出这个队列的头 然后这个头的两个子节点 我们按照任意的顺序 push到这个队列里面 注意 这里重点是任意的顺序 而不是我们常说的">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-03T13:50:27.000Z">
+<meta property="article:modified_time" content="2020-12-03T14:58:52.929Z">
 <meta property="article:author" content="Zhongsihui">
 <meta name="twitter:card" content="summary">
   
@@ -151,139 +155,107 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-数据结构与算法折磨王-图初步" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构与算法折磨王--图初步
+    </h1>
+  
+
+        
+        <a href="/2020/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%8A%98%E7%A3%A8%E7%8E%8B-%E5%9B%BE%E5%88%9D%E6%AD%A5/" class="archive-article-date">
+  	<time datetime="2020-12-03T13:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-03</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天数据结构老师给了图 这里总结一下自己完全不会的东西 - -</p>
+<h1 id="Valid-BFS"><a href="#Valid-BFS" class="headerlink" title="Valid BFS"></a>Valid BFS</h1><p>这一题意思就是 给定一系列的边的父亲和儿子节点 按照顺序 然后给定了一串序列  要判定当前序列是不是按照BFS输出  重点是 这里的BFS不是我们常说的二叉树的BFS 这里的是  我们首先取出这个队列的头 然后这个头的两个子节点 我们按照任意的顺序 push到这个队列里面 注意 这里重点是任意的顺序 而不是我们常说的 从左到右  所以这里我们不能直接BFS 然后比较  我们要使用双指针模仿我们的BFS  也就是我们当前的慢指针 就是我们的队列头 然后我们在BFS的时候 会把这个队列头插入队列里面 然后我们输出的顺序就是按照这个队列 那么我们的快指针就可以判断当前的值是不是慢指针的邻居 如果是的话 那就移动向下一个 直到当前快指针不是当前慢指针的儿子节点  这个判断是不是儿子节点我们可以通过map进行储存  如果是的话 那么map的值就是1嗯  然后如果是BFS正确结果的话 那么应该这个快指针可以直接遍历到尾巴 上代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxN = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; mp[maxN]; <span class="comment">//用来储存是不是有效的边 注意这里是数组哦</span></span><br><span class="line"><span class="keyword">int</span> q[maxN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) <span class="comment">//这里面只要n-1条边</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u, v;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        mp[u][v]  = <span class="number">1</span>; <span class="comment">//这里面保存的是两个顶点是不是有边  如果有的话 那就是正常的</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) <span class="comment">//目标数组</span></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; q[i];</span><br><span class="line">    <span class="keyword">if</span> (q[<span class="number">1</span>] == <span class="number">1</span>) <span class="comment">//如果第一个头不是1  那就是题目傻逼</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">2</span>;        <span class="comment">//快慢指针 这里面也就是双指针   这里是重点 我们这里定义的bfs是 每一次从队列里面抓出第一个</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n; ++i) <span class="comment">//然后按照任意顺序去插入他的邻居到队列 这里面的任意和我们的先左后右是不一样的 这就是这题的难点</span></span><br><span class="line">            <span class="keyword">for</span> (j; mp[q[i]][q[j]]; ++j)</span><br><span class="line">                ;</span><br><span class="line">        <span class="keyword">if</span> (j == n + <span class="number">1</span>)<span class="comment">//如果遍历到最后 那就是yes</span></span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一题看起来没那么复杂 还是可以写的 那么下面呢？</p>
+<h1 id="Obsession-with-Robots"><a href="#Obsession-with-Robots" class="headerlink" title="Obsession with Robots"></a>Obsession with Robots</h1><p>题目讲的就是 有一个机器人 在一个无限大的地图上面跑  然后给定了操作 比如说 U就是往前走 R L就是左走右走  然后到达一个坐标 问你这个机器人到达这个目的地是不是最短距离  意思就是 这个机器人走的路线有没有捷径可以让自己走的更短 我们简单地理解都是 路径有没有成环的地方 如果有 那就证明有捷径（其实不一定 如果这个环上面和下面路径一样长）  所以不能判断是不是成环 应该判断是不是有捷径 直接上代码  这里我们使用的也是BFS 上面讲述了BFS的原理 然后比较无聊的问了不同的顺序push进队列 基本没有什么实用价值 下面我们就是使用正常的BFS 解题<br>BFS究竟用在什么地方呢？ 其实就是 当前的一个状态 我们有很多个操作可以达到子状态的时候  我们去遍历这一些子状态  通过队列进行遍历  还有就是图的比较简单地非递归遍历  我们这里的机器人就是 当前我们可以上下左右4个状态 我们就需要BFS这四种状态 然后判断是不是已经访问过之类的然后进行push进队列  上代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">205</span>;</span><br><span class="line"><span class="keyword">int</span> M[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> T[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> vis[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> dx[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> dy[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++)<span class="comment">//初始化一个图</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; maxn; j++)</span><br><span class="line">            M[i][j] = <span class="number">1</span>;<span class="comment">//全是障碍</span></span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;<span class="comment">//输入路径</span></span><br><span class="line">    <span class="keyword">int</span> nowx = maxn / <span class="number">2</span>, nowy = maxn / <span class="number">2</span>;<span class="comment">//让这个B从图的中央开始走</span></span><br><span class="line">    M[nowx][nowy] = <span class="number">0</span>;<span class="comment">//开路  一开始的nowx 和nowy  就是开路</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">switch</span> (s[i])</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">            nowy++;</span><br><span class="line">            M[nowx][nowy] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;U&#x27;</span>:</span><br><span class="line">            nowx++;</span><br><span class="line">            M[nowx][nowy] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">            nowx--;</span><br><span class="line">            M[nowx][nowy] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;R&#x27;</span>:</span><br><span class="line">            nowy--;</span><br><span class="line">            M[nowx][nowy] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="comment">//这里面走完这个图 开完路</span></span><br><span class="line">    <span class="keyword">int</span> enx = nowx, eny = nowy;</span><br><span class="line">    nowx = maxn / <span class="number">2</span>, nowy = maxn / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; Q;</span><br><span class="line">    Q.push(<span class="built_in">make_pair</span>(nowx, nowy));</span><br><span class="line">    vis[nowx][nowy] = <span class="number">1</span>;        <span class="comment">//从头开始 已经访问过了</span></span><br><span class="line">    <span class="keyword">while</span> (!Q.empty())      <span class="comment">//跑bfs</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; now = Q.front();</span><br><span class="line">        Q.pop();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; next = now;</span><br><span class="line">            <span class="keyword">switch</span> (i)</span><br><span class="line">            &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                next.first += <span class="number">1</span>;</span><br><span class="line">                next.second += <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                next.first += <span class="number">-1</span>;</span><br><span class="line">                next.second += <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                next.first += <span class="number">0</span>;</span><br><span class="line">                next.second += <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                next.first += <span class="number">0</span>;</span><br><span class="line">                next.second += <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (vis[next.first][next.second])<span class="comment">//拜访过就下一个</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (M[next.first][next.second])<span class="comment">//障碍就下一个 证明没开路</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            T[next.first][next.second] = T[now.first][now.second] + <span class="number">1</span>;<span class="comment">//路程</span></span><br><span class="line">            vis[next.first][next.second] = <span class="number">1</span>;</span><br><span class="line">            Q.push(next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (T[enx][eny] &lt; s.size())</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;BUG&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;OK&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里面的问题就是 这个机器人走的路径到底是不是最短的 也就是说有没有成环 就是从一开始走的时候  BFS就是把当前可能走到的位置直接标记了  比如我一开始就有捷径</span></span><br><span class="line"><span class="comment">可以走到我后面路径的位置  这个位置不是障碍物  然后标记是拜访过  然后就去这个地方  那么到时候在队列里面处理这个地方的时候 距离就是这个捷径+1 那么到终点的</span></span><br><span class="line"><span class="comment">距离就不是我们给的路径了</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>这里面是如何保证路径是最小的呢  因为我们是从头开始BFS的 有捷径就会先访问 这里也是BFS的优点</p>
+<h1 id="Number-Clicker（双向BFS）"><a href="#Number-Clicker（双向BFS）" class="headerlink" title="Number Clicker（双向BFS）"></a>Number Clicker（双向BFS）</h1><p>嗯 双向BFS  听起来很牛逼 但是我们只要选好了数据结构 也没那么难  上面第一个 我们选择了MAP进行储存是不是当前两个点有边  第二个用了二维数组 进行储存我们走过的路径  二维数组更好体现了我们的路径 map体现的是边<br>这一题的意思就是给定两个数字 然后还有一个常数  然后第一个数字可以经过3种运算之后  得到第二个数字 问我们最少的操作数  还要输出我们是经过什么顺序的那种操作  这里我们肯定不能一次性在数组里面push 和pop  我们应该进行BFS然后储存当前的状态  这个状态包含什么呢 包含了我们上一个状态 上一个状态用了什么操作到当前状态  以及当前的步骤数 这里我们的key就是当前的状态 那就是map啦 储存一个struct 上代码  然后我们进行双向BFS  一边步骤数是减的 而且是负数 这里也是华点 然后我们从结果和开始双向BFS  然后如果当前的下一个状态已经被访问过了 那么就是相遇了 为什么呢 因为我们是BFS  具体的情况代码里说</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>//这里记录的是 当前的这个数字的  前身 以及前面用的是什么<span class="title">button</span> 和第几步</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> step, but;</span><br><span class="line">    LL pre;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">map</span>&lt;LL, Node&gt; path;<span class="comment">//这里建立的就是这个表 当前的LL对应的状态</span></span><br><span class="line">LL u, v, p;</span><br><span class="line"></span><br><span class="line"><span class="function">LL <span class="title">fpow</span><span class="params">(LL a, LL n)</span><span class="comment">//好家伙 快速幂</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &amp; <span class="number">1</span>)</span><br><span class="line">            res = (res * a) % p;</span><br><span class="line">        a = a * a % p;</span><br><span class="line">        n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(LL a, LL b, <span class="keyword">int</span> op)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, path[a].step - <span class="number">1</span> - path[b].step);</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; S;</span><br><span class="line">    <span class="keyword">while</span> (a != u)</span><br><span class="line">    &#123;</span><br><span class="line">        Node ap = path[a];</span><br><span class="line">        S.push(ap.but);</span><br><span class="line">        a = ap.pre;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!S.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> x = S.top();</span><br><span class="line">        S.pop();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, op);</span><br><span class="line">    <span class="keyword">while</span> (b != v)</span><br><span class="line">    &#123;</span><br><span class="line">        Node bp = path[b];</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, bp.but);</span><br><span class="line">        b = bp.pre;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    path.clear();</span><br><span class="line">    path[u] = (Node)&#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">-1</span>&#125;;<span class="comment">//双向BFS  为什么这里是BFS呢  其实BFS代表的就是 如果当前有很多个操作的状态 那么就我们需要记录每一种状态可能的结果  然后加入队列 等下下一轮的遍历</span></span><br><span class="line">    path[v] = (Node)&#123;<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>&#125;;<span class="comment">//BFS的另一头</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;LL&gt; qf, qb;<span class="comment">//两个BFS的待处理的队列</span></span><br><span class="line">    qf.push(u);</span><br><span class="line">    qb.push(v);</span><br><span class="line">    <span class="keyword">while</span> (!qf.empty() || !qb.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!qf.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            LL x = qf.front();<span class="comment">//抓头</span></span><br><span class="line">            qf.pop();</span><br><span class="line">            Node xp = path[x];<span class="comment">//抓出当前这个头的状态</span></span><br><span class="line">            LL next = (x + <span class="number">1</span>) % p;<span class="comment">//第一个操作</span></span><br><span class="line">            Node np = path[next];<span class="comment">//map 如果没创建 那么就是0</span></span><br><span class="line">            <span class="keyword">if</span> (np.step == <span class="number">0</span>)</span><br><span class="line">            &#123; <span class="comment">//未访问</span></span><br><span class="line">                path[next] = (Node)&#123;xp.step + <span class="number">1</span>, <span class="number">1</span>, x&#125;;<span class="comment">//这个button之后的值的状态就是  步骤是+1  然后 使用的button就是1 x就是我们之前的</span></span><br><span class="line">                qf.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (np.step &lt; <span class="number">0</span>)<span class="comment">//当前的这个值的状态已经被初始化过了 那就是相遇啦  这里我们是可以保证是最短的 怎么说呢 想象一个树  每一层的状态*3  每一层代表了一个步骤  那么从上往下 这个的数的交点肯定是最小的 不可能绕弯路</span></span><br><span class="line">            &#123; <span class="comment">//相遇</span></span><br><span class="line">                Print(x, next, <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            next = (x + p - <span class="number">1</span>) % p; <span class="comment">//op2</span></span><br><span class="line">            np = path[next];</span><br><span class="line">            <span class="keyword">if</span> (np.step == <span class="number">0</span>)<span class="comment">//这里也是华点  我们这里首先判断是不是访问过  如果不是 那就是第一次访问 然后因为是BFS  第一次访问肯定是最短的距离 所以直接保存</span></span><br><span class="line">            &#123;</span><br><span class="line">                path[next] = (Node)&#123;xp.step + <span class="number">1</span>, <span class="number">2</span>, x&#125;;</span><br><span class="line">                qf.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (np.step &lt; <span class="number">0</span>)<span class="comment">//要是已经被保存过了  这里判断是不是相遇不是通过是不是已经保存 而是判断当前的step是不是和自己符号相反 因为如果是符号相同的话 那么现在的步骤肯定是比之前要多的 因为是BFS  如果符号相同 直接舍弃当前结果</span></span><br><span class="line">            &#123;</span><br><span class="line">                Print(x, next, <span class="number">2</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            next = fpow(x, p - <span class="number">2</span>);</span><br><span class="line">            np = path[next];</span><br><span class="line">            <span class="keyword">if</span> (np.step == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                path[next] = (Node)&#123;xp.step + <span class="number">1</span>, <span class="number">3</span>, x&#125;;</span><br><span class="line">                qf.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (np.step &lt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Print(x, next, <span class="number">3</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!qb.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            LL x = qb.front();</span><br><span class="line">            qb.pop();</span><br><span class="line">            Node xp = path[x];</span><br><span class="line"></span><br><span class="line">            LL next = (x + p - <span class="number">1</span>) % p;</span><br><span class="line">            Node np = path[next];</span><br><span class="line">            <span class="keyword">if</span> (!np.step)</span><br><span class="line">            &#123;</span><br><span class="line">                path[next] = (Node)&#123;xp.step - <span class="number">1</span>, <span class="number">1</span>, x&#125;;</span><br><span class="line">                qb.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (np.step &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Print(next, x, <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            next = (x + <span class="number">1</span>) % p;</span><br><span class="line">            np = path[next];</span><br><span class="line">            <span class="keyword">if</span> (!np.step)</span><br><span class="line">            &#123;</span><br><span class="line">                path[next] = (Node)&#123;xp.step - <span class="number">1</span>, <span class="number">2</span>, x&#125;;</span><br><span class="line">                qb.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (np.step &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Print(next, x, <span class="number">2</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            next = fpow(x, p - <span class="number">2</span>);</span><br><span class="line">            np = path[next];</span><br><span class="line">            <span class="keyword">if</span> (!np.step)</span><br><span class="line">            &#123;</span><br><span class="line">                path[next] = (Node)&#123;xp.step - <span class="number">1</span>, <span class="number">3</span>, x&#125;;</span><br><span class="line">                qb.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (np.step &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Print(next, x, <span class="number">3</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N, M, tmp, T;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld %lld&quot;</span>, &amp;u, &amp;v, &amp;p) == <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (u == v)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        BFS();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>好了以上就是我们的全部内容了 其实今天有4题  我只看懂了3题  嗯  只写了3题 另外一个是树形DP 我爪巴</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-11-04T12:57:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/04/CDN%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/">CDN概念学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/NET相关//" class="article-tag-list-link color1">NET相关</a>
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/" class="archive-article-date">
-  	<time datetime="2020-11-04T01:29:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-04</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/01/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">互联网协议入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/04/JavaScript%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/">JavaScript从入门到入土-历史</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/JavaScript//" class="article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/03/First-Page/" class="archive-article-date">
-  	<time datetime="2020-11-03T13:47:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-03</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/03/First-Page/">搭建博客采坑指南</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Start//" class="article-tag-list-link color1">Start</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
   
 
 
@@ -307,8 +279,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
