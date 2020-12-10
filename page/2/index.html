@@ -178,6 +178,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/09/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BSymbol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhongsihui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dream Starts Here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/09/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BSymbol/" class="post-title-link" itemprop="url">Java数据类型Symbol</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-09 09:12:05" itemprop="dateCreated datePublished" datetime="2020-11-09T09:12:05+08:00">2020-11-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-11 20:51:50" itemprop="dateModified" datetime="2020-11-11T20:51:50+08:00">2020-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>js独特的数据类型Symbol 期间先介绍一下string类型的使用 然后开始正式介绍Symbol</p>
+<h1 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h1><p>String 有几个比较常见的spilce函数等等<br>常用的转义字符和C++的一样 但是如果你要原封不动的输出转义字符的话 有一个标签函数 类似于修饰器的函数可以进行修饰 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`first line\nsecond line`</span>); <span class="comment">// &quot;first line\nsecond line&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h1><p>js原生的 基础数据类型有6种<br>undefined   null    number  string  boolean     symbol<br>其中symbol是ES6 也就是js第六版加进去的 </p>
+<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p>就是对变量进行声明 但是还没有进行初始化赋值 比如说</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<p>永远不要给一个变量手动赋值为undefined 不然的话你就不知道究竟这个undefined是因为忘记进行初始化还是别的什么原因 这个undefined一般是用来检测自己是不是忘记对变量进行初始化的</p>
+<h2 id="null"><a href="#null" class="headerlink" title="null"></a>null</h2><p>基础数据类型里面没有object  他是一个复杂数据类型 null代表的是一个空对象指针  在定义一个将要保存一个object的变量的时候 可以对他赋值null 表示这个变量我是要赋值一个object 但是我还没干 一边和undefined进行区分 null是一个对象 对他进行typeof运算会得到object 要注意</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> == <span class="literal">undefined</span>); <span class="comment">// true</span></span><br><span class="line"><span class="keyword">typeof</span>(<span class="literal">undefined</span>);  <span class="comment">//undefined</span></span><br><span class="line"><span class="keyword">typeof</span>(<span class="literal">null</span>);  <span class="comment">//object</span></span><br></pre></td></tr></table></figure>
+<p>这个是特殊的</p>
+<h2 id="typeof-运算符"><a href="#typeof-运算符" class="headerlink" title="typeof 运算符"></a>typeof 运算符</h2><p>这个是一个运算符而不是一个函数 它具有下列的输出<br>number string   undefined  function    symbol  boolean     obejct<br>相比于基础数据类型 （6个）<br>多了一个function  将null换成了object  因为我们知道typeof(null) 会输出object</p>
+<h1 id="symbol"><a href="#symbol" class="headerlink" title="symbol"></a>symbol</h1><p>下面开始探讨symbol这个新的数据类型 因为也是第一次接触 慢慢摸索<br>symbol相当于一个符号  是对对象属性的唯一标识符  不会发生冲突的危险 相当于trackBy 的 agentId 每一个symbol都是唯一的  但是symbol的描述可以是相同的  比如说我有两个标签 一个是1号 一个是2号  我描述1号是一支笔 2号是一支笔 标签的描述是相同的 但是标签的序号本身还是不同的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fooSymbol = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> otherFooSymbol = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(fooSymbol == otherFooSymbol); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>需要注意的是  symbol是不能通过new运算符进行操作的 不能和其他基本数据类型一样  成为一个包装对象<br>意思就是说 new运算符 可以将基础数据类型变成一个object  这个时候进行typeof当然是object</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myBoolean = <span class="keyword">new</span> <span class="built_in">Boolean</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> myBoolean); <span class="comment">// &quot;object&quot;</span></span><br><span class="line"><span class="keyword">let</span> myString = <span class="keyword">new</span> <span class="built_in">String</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> myString); <span class="comment">// &quot;object&quot;</span></span><br><span class="line"><span class="keyword">let</span> myNumber = <span class="keyword">new</span> <span class="built_in">Number</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> myNumber); <span class="comment">// &quot;object&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>具体符号是用来标识一个对象的 但是如果很多对象需要使用相同的symbol  那么需要在全局符号注册一个</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fooGlobalSymbol = <span class="built_in">Symbol</span>.for(<span class="string">&#x27;foo&#x27;</span>); <span class="comment">// 创建新符号</span></span><br><span class="line"><span class="keyword">let</span> otherFooGlobalSymbol = <span class="built_in">Symbol</span>.for(<span class="string">&#x27;foo&#x27;</span>); <span class="comment">// 重用已有符号</span></span><br><span class="line"><span class="built_in">console</span>.log(fooGlobalSymbol === otherFooGlobalSymbol); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>Symbol.keyFor()方法返回一个已登记的 Symbol 类型值的key。 这个登记指的是在全局进行登记</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(s1) <span class="comment">// &quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s2 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(s2) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<p>符号可以作为对象的属性 用来标识每一个对象 比如说</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>),</span><br><span class="line">s2 = <span class="built_in">Symbol</span>(<span class="string">&#x27;bar&#x27;</span>),</span><br><span class="line">s3 = <span class="built_in">Symbol</span>(<span class="string">&#x27;baz&#x27;</span>),</span><br><span class="line">s4 = <span class="built_in">Symbol</span>(<span class="string">&#x27;qux&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> o = &#123;</span><br><span class="line">[s1]: <span class="string">&#x27;foo val&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里的方括号就是用现有变量作为属性的标识<br>同样地 也可以使用Object的方法 对对象进行属性的赋值<br>symbol 还可以用于定义一整组常量 保证这一些常量都是不相等的  如果要辨别这一些常量的话 symbol是一个很好地选择 比如说是switch 同时还可以消除魔术字符串和常量</p>
+<h3 id="symbol属性的遍历"><a href="#symbol属性的遍历" class="headerlink" title="symbol属性的遍历"></a>symbol属性的遍历</h3><p>如果symbol作为一个对象的属性的名字的话 那么for-in 循环是不能进行输出的 而且 Object.getOwnPropertyNames() 方法也得不到这个键的名字  必须是Object.getOwnPropertySymbols() 或者是 Reflect.ownKeys()    后者可以返回所有类型的键名</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>(<span class="string">&#x27;my_key&#x27;</span>)]: <span class="number">1</span>,</span><br><span class="line">  enum: <span class="number">2</span>,</span><br><span class="line">  nonEnum: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.ownKeys(obj)</span><br><span class="line"><span class="comment">//  [&quot;enum&quot;, &quot;nonEnum&quot;, Symbol(my_key)]</span></span><br></pre></td></tr></table></figure>
+<h2 id="ES9-内置的symbol"><a href="#ES9-内置的symbol" class="headerlink" title="ES9 内置的symbol"></a>ES9 内置的symbol</h2><p>以后再说</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/05/%E6%8E%A2%E7%B4%A2%E5%BA%95%E5%B1%82-%E5%8F%98%E9%87%8F%E5%92%8C%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%A6%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -577,7 +676,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

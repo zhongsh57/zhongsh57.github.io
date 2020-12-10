@@ -178,6 +178,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8Bkmp%E7%AE%97%E6%B3%95%E5%92%8C%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhongsihui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dream Starts Here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8Bkmp%E7%AE%97%E6%B3%95%E5%92%8C%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/" class="post-title-link" itemprop="url">数据结构与算法之kmp算法和哈夫曼树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-10 20:39:07 / Modified: 21:11:31" itemprop="dateCreated datePublished" datetime="2020-12-10T20:39:07+08:00">2020-12-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天数据结构课实验整了两个新东西 这里总结一下</p>
+<h1 id="kmp算法"><a href="#kmp算法" class="headerlink" title="kmp算法"></a>kmp算法</h1><p>明明在讲图 突然来个字符串 不知道助教是怎么想的<br>kmp算法  其实实现的就是 从一个字符串里面寻找另外一个字符串是不是他的子串 按照我们暴力的解法 我们可以使用两个指针 从source和target两个字符串里面开始遍历 如果匹配的话 那么就继续 如果遍历到了target的尾部 那就证明找到成功 返回source指针的减去target长度的位置<br>如果发现有一个字符不匹配的话 那么两个指针都需要回退 回退的长度是target指针移动的长度<br>但是我们这里发现 如果发现不匹配了 那么之前匹配的结果可以继续利用 不需要全部回退完<br>这里可以利用的部分就是 我们的target字符串其中  后缀和前缀的重合度  比如说<br>ABCDEFG<b>ABKAB</b>UI<b>ABKABD</b>BB<br>ABKABD<br>这里面 当我们匹配前面的ABKAB的之后 下一个字母U  不是D 所以不匹配<br>如果按照暴力  这个时候应该是退回到B  target退回到A<br>但是这个时候 kmp算法就说 我们可以 只回退tar的指针 不回退source 的指针 为什么呢  其实就是 我们发现其中已经有字符不匹配的时候 我们就在已经匹配的字符里面去找可能成为开头的字符 什么意思呢 就是比如我们已经匹配的ABKAB  这个时候发现D不匹配 我们在ABKAB里面去找可能为tar开头的字符<br>因为匹配的字符我们是知道的  所以我们就可以直接知道当前字符串tar只需要回退多少格  而不是都重来<br>我们给每一个tar的字符的位置都给了一个匹配上的表 代表着当前我们如果匹配不上 那么tar 指针需要回退多少格 就不用再次匹配我们已经知道的 匹配过的头了<br>这个算法的核心就是  找到这个数组 对应着tar的每一个字符的匹配值<br>通俗的讲  就是求前缀和后缀的交集的最长的长度<br>直接上代码吧</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">10000</span>];   </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">next</span><span class="params">(<span class="keyword">char</span>* t)</span> </span>&#123;        <span class="comment">//求这个数组  具体的方法见代码 我自己理解不是很透彻 </span></span><br><span class="line">  <span class="keyword">int</span> j = <span class="number">0</span>, k = <span class="number">-1</span>;</span><br><span class="line">  a[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">while</span> (j &lt; <span class="built_in">strlen</span>(t) - <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">-1</span> || t[j] == t[k]) &#123;</span><br><span class="line">      j++;</span><br><span class="line">      k++;</span><br><span class="line">      a[j] = k;</span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">      k = a[k];     <span class="comment">//同一个子串里面用了kmp  妙  我讲不清楚</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">char</span> *x, <span class="keyword">char</span> *y)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">    next(x);</span><br><span class="line">    <span class="keyword">int</span> len1=<span class="built_in">strlen</span>(y);</span><br><span class="line">    <span class="keyword">int</span> len2=<span class="built_in">strlen</span>(x);</span><br><span class="line">    <span class="keyword">while</span>(i&lt;len1&amp;&amp;j&lt;len2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">-1</span>||y[i]==x[j])</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            j=a[j];<span class="comment">//如果不匹配 那么就回退到我们记录的地方 sourcce不用回退</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j&gt;=len2)</span><br><span class="line">        <span class="keyword">return</span> i-len2;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h1><p>哈夫曼树就是 最优树  每一个叶子节点有不同的权值 叶子节点的权值乘以到叶子的路径长度的值最小 我们称之为哈夫曼树 用于压缩算法  对不同出现频率的进行编码  出现频率高的就在树的比较靠近根节点的位置 出现频率低的就在远离根节点的位置</p>
+<h2 id="构建哈弗曼树的原理"><a href="#构建哈弗曼树的原理" class="headerlink" title="构建哈弗曼树的原理"></a>构建哈弗曼树的原理</h2><p>首先每一个字符对应着一个权值  构成一个数组  我们每一次取出两个权值最小的字符 将他们从队列里面剔除  然后连成一个新的节点的二叉树  然后push进数组 权值为二者权值的和  重复这个过程<br>使用优先队列可以轻易每次得到最小的两个 然后push就完事了 具体不是很难</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>         //这里面节点储存着<span class="title">char</span>和权值</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> val;</span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    Node *left, *right;</span><br><span class="line">    Node(<span class="keyword">long</span> <span class="keyword">long</span> val, <span class="keyword">char</span> b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;a = b;</span><br><span class="line">        <span class="keyword">this</span>-&gt;val = val;</span><br><span class="line">        left = <span class="literal">NULL</span>;</span><br><span class="line">        right = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Node *a, <span class="keyword">const</span> Node *b)</span> <span class="keyword">const</span><span class="comment">//比较函数  注意这里的操作符是()  包装在一个结构体里面</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a-&gt;val &gt; b-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postorder</span><span class="params">(Node *root, <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &amp;path)</span><span class="comment">//后序遍历</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        postorder(root-&gt;left, path);</span><br><span class="line">        postorder(root-&gt;right, path);</span><br><span class="line">        path.push_back(root-&gt;a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">priority_queue</span>&lt;Node *, <span class="built_in">vector</span>&lt;Node *&gt;, cmp&gt; pq;<span class="comment">//优先队列</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">long</span> <span class="keyword">long</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span> a;</span><br><span class="line">        <span class="keyword">int</span> val;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; val;</span><br><span class="line">        Node *t = <span class="keyword">new</span> Node(val, a);<span class="comment">//cin初始化</span></span><br><span class="line">        pq.push(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pq.size() == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; pq.top()-&gt;val &lt;&lt; <span class="built_in">endl</span>;<span class="comment">//边缘检测</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Node *root;</span><br><span class="line">    <span class="keyword">while</span> (pq.size() &gt; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Node *a = pq.top();</span><br><span class="line">        pq.pop();</span><br><span class="line">        Node *b = pq.top();</span><br><span class="line">        pq.pop();<span class="comment">//抓头 两个 并且pop</span></span><br><span class="line">        Node *sum = <span class="keyword">new</span> Node(a-&gt;val + b-&gt;val, <span class="string">&#x27; &#x27;</span>);<span class="comment">//把和抓紧去 并且push</span></span><br><span class="line">        <span class="keyword">if</span> (a-&gt;val &lt; b-&gt;val)</span><br><span class="line">        &#123;</span><br><span class="line">            sum-&gt;left = b;</span><br><span class="line">            sum-&gt;right = a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a-&gt;val &gt; b-&gt;val)</span><br><span class="line">        &#123;</span><br><span class="line">            sum-&gt;right = b;</span><br><span class="line">            sum-&gt;left = a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (a-&gt;val == b-&gt;val)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (a-&gt;a &lt; b-&gt;a)</span><br><span class="line">                &#123;</span><br><span class="line">                    sum-&gt;left = b;</span><br><span class="line">                    sum-&gt;right = a;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    sum-&gt;right = b;</span><br><span class="line">                    sum-&gt;left = a;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;       <span class="comment">//这谁在左边谁在右边自己定</span></span><br><span class="line">        root = sum;<span class="comment">//每一次更新树根 因为最后会连成一整棵树 得到的就是root</span></span><br><span class="line">        pq.push(sum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; ans;</span><br><span class="line">    postorder(root, ans);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> i : ans)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i != <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>到此结束</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%A0%91%E8%A1%A5%E5%85%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -936,105 +1010,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/09/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BSymbol/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Zhongsihui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dream Starts Here">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/09/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BSymbol/" class="post-title-link" itemprop="url">Java数据类型Symbol</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-09 09:12:05" itemprop="dateCreated datePublished" datetime="2020-11-09T09:12:05+08:00">2020-11-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-11 20:51:50" itemprop="dateModified" datetime="2020-11-11T20:51:50+08:00">2020-11-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>js独特的数据类型Symbol 期间先介绍一下string类型的使用 然后开始正式介绍Symbol</p>
-<h1 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h1><p>String 有几个比较常见的spilce函数等等<br>常用的转义字符和C++的一样 但是如果你要原封不动的输出转义字符的话 有一个标签函数 类似于修饰器的函数可以进行修饰 </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`first line\nsecond line`</span>); <span class="comment">// &quot;first line\nsecond line&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h1><p>js原生的 基础数据类型有6种<br>undefined   null    number  string  boolean     symbol<br>其中symbol是ES6 也就是js第六版加进去的 </p>
-<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p>就是对变量进行声明 但是还没有进行初始化赋值 比如说</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
-<p>永远不要给一个变量手动赋值为undefined 不然的话你就不知道究竟这个undefined是因为忘记进行初始化还是别的什么原因 这个undefined一般是用来检测自己是不是忘记对变量进行初始化的</p>
-<h2 id="null"><a href="#null" class="headerlink" title="null"></a>null</h2><p>基础数据类型里面没有object  他是一个复杂数据类型 null代表的是一个空对象指针  在定义一个将要保存一个object的变量的时候 可以对他赋值null 表示这个变量我是要赋值一个object 但是我还没干 一边和undefined进行区分 null是一个对象 对他进行typeof运算会得到object 要注意</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> == <span class="literal">undefined</span>); <span class="comment">// true</span></span><br><span class="line"><span class="keyword">typeof</span>(<span class="literal">undefined</span>);  <span class="comment">//undefined</span></span><br><span class="line"><span class="keyword">typeof</span>(<span class="literal">null</span>);  <span class="comment">//object</span></span><br></pre></td></tr></table></figure>
-<p>这个是特殊的</p>
-<h2 id="typeof-运算符"><a href="#typeof-运算符" class="headerlink" title="typeof 运算符"></a>typeof 运算符</h2><p>这个是一个运算符而不是一个函数 它具有下列的输出<br>number string   undefined  function    symbol  boolean     obejct<br>相比于基础数据类型 （6个）<br>多了一个function  将null换成了object  因为我们知道typeof(null) 会输出object</p>
-<h1 id="symbol"><a href="#symbol" class="headerlink" title="symbol"></a>symbol</h1><p>下面开始探讨symbol这个新的数据类型 因为也是第一次接触 慢慢摸索<br>symbol相当于一个符号  是对对象属性的唯一标识符  不会发生冲突的危险 相当于trackBy 的 agentId 每一个symbol都是唯一的  但是symbol的描述可以是相同的  比如说我有两个标签 一个是1号 一个是2号  我描述1号是一支笔 2号是一支笔 标签的描述是相同的 但是标签的序号本身还是不同的</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fooSymbol = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> otherFooSymbol = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(fooSymbol == otherFooSymbol); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<p>需要注意的是  symbol是不能通过new运算符进行操作的 不能和其他基本数据类型一样  成为一个包装对象<br>意思就是说 new运算符 可以将基础数据类型变成一个object  这个时候进行typeof当然是object</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myBoolean = <span class="keyword">new</span> <span class="built_in">Boolean</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> myBoolean); <span class="comment">// &quot;object&quot;</span></span><br><span class="line"><span class="keyword">let</span> myString = <span class="keyword">new</span> <span class="built_in">String</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> myString); <span class="comment">// &quot;object&quot;</span></span><br><span class="line"><span class="keyword">let</span> myNumber = <span class="keyword">new</span> <span class="built_in">Number</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> myNumber); <span class="comment">// &quot;object&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>具体符号是用来标识一个对象的 但是如果很多对象需要使用相同的symbol  那么需要在全局符号注册一个</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fooGlobalSymbol = <span class="built_in">Symbol</span>.for(<span class="string">&#x27;foo&#x27;</span>); <span class="comment">// 创建新符号</span></span><br><span class="line"><span class="keyword">let</span> otherFooGlobalSymbol = <span class="built_in">Symbol</span>.for(<span class="string">&#x27;foo&#x27;</span>); <span class="comment">// 重用已有符号</span></span><br><span class="line"><span class="built_in">console</span>.log(fooGlobalSymbol === otherFooGlobalSymbol); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>Symbol.keyFor()方法返回一个已登记的 Symbol 类型值的key。 这个登记指的是在全局进行登记</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(s1) <span class="comment">// &quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s2 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">Symbol</span>.keyFor(s2) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-<p>符号可以作为对象的属性 用来标识每一个对象 比如说</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&#x27;foo&#x27;</span>),</span><br><span class="line">s2 = <span class="built_in">Symbol</span>(<span class="string">&#x27;bar&#x27;</span>),</span><br><span class="line">s3 = <span class="built_in">Symbol</span>(<span class="string">&#x27;baz&#x27;</span>),</span><br><span class="line">s4 = <span class="built_in">Symbol</span>(<span class="string">&#x27;qux&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> o = &#123;</span><br><span class="line">[s1]: <span class="string">&#x27;foo val&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这里的方括号就是用现有变量作为属性的标识<br>同样地 也可以使用Object的方法 对对象进行属性的赋值<br>symbol 还可以用于定义一整组常量 保证这一些常量都是不相等的  如果要辨别这一些常量的话 symbol是一个很好地选择 比如说是switch 同时还可以消除魔术字符串和常量</p>
-<h3 id="symbol属性的遍历"><a href="#symbol属性的遍历" class="headerlink" title="symbol属性的遍历"></a>symbol属性的遍历</h3><p>如果symbol作为一个对象的属性的名字的话 那么for-in 循环是不能进行输出的 而且 Object.getOwnPropertyNames() 方法也得不到这个键的名字  必须是Object.getOwnPropertySymbols() 或者是 Reflect.ownKeys()    后者可以返回所有类型的键名</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>(<span class="string">&#x27;my_key&#x27;</span>)]: <span class="number">1</span>,</span><br><span class="line">  enum: <span class="number">2</span>,</span><br><span class="line">  nonEnum: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.ownKeys(obj)</span><br><span class="line"><span class="comment">//  [&quot;enum&quot;, &quot;nonEnum&quot;, Symbol(my_key)]</span></span><br></pre></td></tr></table></figure>
-<h2 id="ES9-内置的symbol"><a href="#ES9-内置的symbol" class="headerlink" title="ES9 内置的symbol"></a>ES9 内置的symbol</h2><p>以后再说</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1106,7 +1081,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
