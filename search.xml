@@ -373,4 +373,34 @@
         <category>算法</category>
       </categories>
   </entry>
+  <entry>
+    <title>计算机组成原理之期末临时抱佛脚</title>
+    <url>/2020/12/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E4%B9%8B%E6%9C%9F%E6%9C%AB%E4%B8%B4%E6%97%B6%E6%8A%B1%E4%BD%9B%E8%84%9A/</url>
+    <content><![CDATA[<p>临时抱佛脚 不知道还来不来得及  只记录了觉得记不住的东西</p>
+<h1 id="第一章-计算机概要"><a href="#第一章-计算机概要" class="headerlink" title="第一章 计算机概要"></a>第一章 计算机概要</h1><h2 id="主储存器-运行内存"><a href="#主储存器-运行内存" class="headerlink" title="主储存器 运行内存~"></a>主储存器 运行内存~</h2><p>储存器的结构<br>DRAM dynamic random access memory 动态随机存取存储器  访问不同的地址的数据的速度都是一样的 在断电之后 数据消失<br>SRAM static ~ 速度更快  相当于DRAM里面的缓存  具体效果可以参考CPU的三级缓存  越高级 越快 越小 越贵</p>
+<p>以上都是我们断电之后就会消失的储存器<br>当然还有断电之后不会消失的储存器 磁盘  我们把会消失的叫做主储存器 后者叫做二级储存器</p>
+<h2 id="二级储存器-硬盘和闪存"><a href="#二级储存器-硬盘和闪存" class="headerlink" title="二级储存器 硬盘和闪存"></a>二级储存器 硬盘和闪存</h2><p>闪存就是比硬盘小 比硬盘快 比硬盘贵  而且不会断电消失</p>
+<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>CPU当然讲究性能<br>性能的两个度量指标<br>execution time 响应时间<br>bandwidth   吞吐率<br>性能之比就是执行相同的程序所需要的时间之比的倒数</p>
+<h2 id="CPU性能"><a href="#CPU性能" class="headerlink" title="CPU性能"></a>CPU性能</h2><p>时钟周期       时钟周期就是CPU的上升沿和下降沿的时间差 这里不同的CPU有不同的时钟周期<br>CPI         cycle per instruction  平均每一条指令需要的时钟周期<br>指令数          从高级语言编译成汇编语言的数目<br>CPU频率         就是我们买的时候看到的GHz =  1/时钟周期</p>
+<p><span style='color:red; font-size:30px'>key：       T = N * CPI / CPU频率 = N * CPI * 时钟周期 </span></p>
+<h1 id="第二章-计算机指令"><a href="#第二章-计算机指令" class="headerlink" title="第二章 计算机指令"></a>第二章 计算机指令</h1><p>我们的指令一般是从op code和funct code 就能知道是什么操作<br>从op code 知道后面的指令的分割方法  有不同类型的指令</p>
+<p>R type指令<br>op code 一般是0    re  rt 代表source寄存器 rd 是把结果储存的寄存器 shamt是移位  func 就是function code</p>
+<table>
+<thead>
+<tr>
+<th align="center">op (6)</th>
+<th align="center">rs (5)</th>
+<th align="center">rt (5)</th>
+<th align="center">rd (5)</th>
+<th align="center">shamt (5)</th>
+<th align="center">func (6)</th>
+</tr>
+</thead>
+</table>
+<h2 id="转移地址表"><a href="#转移地址表" class="headerlink" title="转移地址表"></a>转移地址表</h2><p>就是把我们mips代码里面的前面的标签 转换成一个类似于map的数据结构<br>然后  每次进行branch  或者是j  jr的时候 就会在这个map里面 用标签作为key 去查找map里面的值 然后load 地址到寄存器里面  然后再跳转到寄存器的储存的地址</p>
+]]></content>
+      <categories>
+        <category>计算机组成原理</category>
+      </categories>
+  </entry>
 </search>
