@@ -20,15 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Dream Starts Here">
-<meta property="og:url" content="http://example.com/archives/2020/11/page/2/index.html">
+  <meta name="description" content="这里学习一下CSS 很多的之前没用过的东西 颜色上来就是一个 RGBA 和 HSLARGBA 都比较熟悉了  A &#x3D;&#x3D;&#x3D; Alpha  透明度啦HSLA    A&#x3D;&#x3D;&#x3D; 透明度其实都是颜色 问题不是很大 和前端的关系不大 但是面试可能问到颜色的其他的函数 这里补充一下 border我不知道的秘密border其实就是边框 但是我们不知道的是 边框默认是会覆盖掉我们的div标签内部的东西的这个时候 有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS之难题解决和知识补充">
+<meta property="og:url" content="http://example.com/2020/12/23/CSS%E4%B9%8B%E9%9A%BE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%92%8C%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/index.html">
 <meta property="og:site_name" content="Dream Starts Here">
+<meta property="og:description" content="这里学习一下CSS 很多的之前没用过的东西 颜色上来就是一个 RGBA 和 HSLARGBA 都比较熟悉了  A &#x3D;&#x3D;&#x3D; Alpha  透明度啦HSLA    A&#x3D;&#x3D;&#x3D; 透明度其实都是颜色 问题不是很大 和前端的关系不大 但是面试可能问到颜色的其他的函数 这里补充一下 border我不知道的秘密border其实就是边框 但是我们不知道的是 边框默认是会覆盖掉我们的div标签内部的东西的这个时候 有">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-23T15:38:37.000Z">
+<meta property="article:modified_time" content="2020-12-23T16:11:23.805Z">
 <meta property="article:author" content="Zhongsihui">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/2020/11/page/2/">
+<link rel="canonical" href="http://example.com/2020/12/23/CSS%E4%B9%8B%E9%9A%BE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%92%8C%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/">
 
 
 <script id="page-configurations">
@@ -36,12 +40,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Dream Starts Here</title>
+  <title>CSS之难题解决和知识补充 | Dream Starts Here</title>
   
 
 
@@ -172,54 +176,121 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 19 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/23/CSS%E4%B9%8B%E9%9A%BE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%92%8C%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhongsihui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dream Starts Here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS之难题解决和知识补充
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-23 23:38:37" itemprop="dateCreated datePublished" datetime="2020-12-23T23:38:37+08:00">2020-12-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-24 00:11:23" itemprop="dateModified" datetime="2020-12-24T00:11:23+08:00">2020-12-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p>这里学习一下CSS 很多的之前没用过的东西</p>
+<h1 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h1><p>上来就是一个 RGBA 和 HSLA<br>RGBA 都比较熟悉了  A === Alpha  透明度啦<br>HSLA    A=== 透明度<br>其实都是颜色 问题不是很大 和前端的关系不大 但是面试可能问到颜色的其他的函数 这里补充一下</p>
+<h1 id="border我不知道的秘密"><a href="#border我不知道的秘密" class="headerlink" title="border我不知道的秘密"></a>border我不知道的秘密</h1><p>border其实就是边框 但是我们不知道的是 边框默认是会覆盖掉我们的div标签内部的东西的<br>这个时候 有一个属性叫做background-clip<br>顾名思义 这个属性是确定我们的背景是如何进行保留的 三个值</p>
+<ul>
+<li>padding-box   从padding就开始有背景了 这个时候div的大小是content+padding+border</li>
+<li>content-box   从content才会有背景 这个时候如果设置padding  那么就是无背景的padding</li>
+<li>border-box    border覆盖背景</li>
+</ul>
+<p>所以设置外边框 或者是四周的阴影之类的 直接使用 background-clip 设置为padding-box  然后进行border样式的修改就ok啦</p>
+<p>但是有一个缺点就是 我们只能设置一个边框 如果要多个边框？</p>
+<h1 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h1><p>这个属性是CSS3的 其实他的原理很简单 就是在我们的盒子模型的后面一层 加上一个指定大小的 颜色色块  我们可以设置这个颜色色块的延伸  可以设置模糊度 可以设置这个颜色色块的位置 以及内阴影还是外阴影  我们甚至可以设置许多个阴影<br>我们只需要设置不同的延伸就行啦 注意必须比前一个大</p>
+<h1 id="outline"><a href="#outline" class="headerlink" title="outline"></a>outline</h1><p>设置描边  当然是描边框啦  这个是在边框之外的 但是和边框不同的是  边框是占据大小的 但是outline是不占据大小的</p>
+<blockquote>
+<p>至此为止 我们现在给div加上边框有几种办法</p>
+<ol>
+<li>直接加border  但是这个时候要注意 border占据大小<ul>
+<li>border-box</li>
+<li>padding-box</li>
+<li>content-box</li>
+</ul>
+</li>
+<li>border外面套 outline outline不占据大小</li>
+<li>直接box-shadow 无偏移 伸张量就是大小</li>
+<li>多层边框就是多个box-shadow <ul>
+<li>两个边框可以border+outline</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-03T21:47:12+08:00"
-              content="2020-11-03">
-          11-03
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/03/First-Page/" itemprop="url">
-            <span itemprop="name">搭建博客采坑指南</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A2%84%E7%AE%97%E6%B3%95%E4%B9%8B%E5%9B%BE%E4%B9%8B%E9%82%BB%E6%8E%A5%E8%A1%A8%E4%B9%8B%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="prev" title="数据结构预算法之图之邻接表之拓扑排序">
+      <i class="fa fa-chevron-left"></i> 数据结构预算法之图之邻接表之拓扑排序
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-    </div>
-  </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2020/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/2020/11/">1</a><span class="page-number current">2</span>
-  </nav>
 
 
 
@@ -271,6 +342,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2"><span class="nav-number">1.</span> <span class="nav-text">颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#border%E6%88%91%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E7%A7%98%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">border我不知道的秘密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#box-shadow"><span class="nav-number">3.</span> <span class="nav-text">box-shadow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#outline"><span class="nav-number">4.</span> <span class="nav-text">outline</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
