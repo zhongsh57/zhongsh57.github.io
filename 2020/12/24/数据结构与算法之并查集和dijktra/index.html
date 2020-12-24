@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="又是周四 今天继续讲图 Dijkstra 算法 求最短路径 无向图首先这个和走迷宫是不一样的 走迷宫和图不一样 图是顶点然后连边 但是迷宫可以说是图的搜索了 这个求最短路径一般来说不用到迷宫里面 用于我们的有向图的求从一个顶点出发 到达所有顶点的值 如果到达的了的话直接上代码吧 原理不多说了还是说吧 就是维护一个状态数组 保存我们当前的状态 然后第一步 把 ans 数组全部置位 INT_MAX然后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法之并查集和dijktra和走迷宫">
+<meta property="og:url" content="http://example.com/2020/12/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%92%8Cdijktra/index.html">
+<meta property="og:site_name" content="Dream Starts Here">
+<meta property="og:description" content="又是周四 今天继续讲图 Dijkstra 算法 求最短路径 无向图首先这个和走迷宫是不一样的 走迷宫和图不一样 图是顶点然后连边 但是迷宫可以说是图的搜索了 这个求最短路径一般来说不用到迷宫里面 用于我们的有向图的求从一个顶点出发 到达所有顶点的值 如果到达的了的话直接上代码吧 原理不多说了还是说吧 就是维护一个状态数组 保存我们当前的状态 然后第一步 把 ans 数组全部置位 INT_MAX然后">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-24T14:11:56.000Z">
+<meta property="article:modified_time" content="2020-12-24T15:07:52.119Z">
+<meta property="article:author" content="Zhongsihui">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/12/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%92%8Cdijktra/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>数据结构与算法之并查集和dijktra和走迷宫 | Dream Starts Here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Dream Starts Here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%92%8Cdijktra/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhongsihui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dream Starts Here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构与算法之并查集和dijktra和走迷宫
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-24 22:11:56 / Modified: 23:07:52" itemprop="dateCreated datePublished" datetime="2020-12-24T22:11:56+08:00">2020-12-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>又是周四 今天继续讲图</p>
+<h1 id="Dijkstra-算法-求最短路径-无向图"><a href="#Dijkstra-算法-求最短路径-无向图" class="headerlink" title="Dijkstra 算法 求最短路径 无向图"></a>Dijkstra 算法 求最短路径 无向图</h1><p>首先这个和走迷宫是不一样的 走迷宫和图不一样 图是顶点然后连边 但是迷宫可以说是图的搜索了 这个求最短路径一般来说不用到迷宫里面 用于我们的有向图的<br>求从一个顶点出发 到达所有顶点的值 如果到达的了的话<br>直接上代码吧 原理不多说了<br>还是说吧 就是维护一个状态数组 保存我们当前的状态 然后第一步 把 ans 数组全部置位 INT_MAX<br>然后第一步选择就是 source 把 ans[source]置位 0 自己到自己肯定最小就是 0<br>然后遍历所有 source 能到达的点 边权加上到达自己当前讨论的这个点 如果比数组中的状态要小 那么就更新我们的 ans 数组<br>这里不多说 直接上代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cases = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; cases;</span><br><span class="line">    <span class="keyword">while</span> (cases--)<span class="comment">//测例</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> vertexs = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> edges = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; vertexs &gt;&gt; edges;<span class="comment">//点数和边数</span></span><br><span class="line">        <span class="keyword">int</span> g[vertexs + <span class="number">1</span>][vertexs + <span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(vertexs + <span class="number">1</span>, INT_MAX)</span></span>;<span class="comment">//我们的答案 第i个表示从source到i的最小值</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">visited</span><span class="params">(vertexs + <span class="number">1</span>, <span class="number">0</span>)</span></span>;<span class="comment">//是不是已经讨论过了  也就是最小已经是确定的</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; edges; i++)<span class="comment">//邻接矩阵</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> from, to, weight;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; from &gt;&gt; to &gt;&gt; weight;</span><br><span class="line">            g[from][to] = weight;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> source = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; source;</span><br><span class="line">        <span class="keyword">int</span> root = source;</span><br><span class="line">        <span class="keyword">int</span> now_dis = <span class="number">0</span>;<span class="comment">//当前  从source到当前讨论的这个顶点  距离最小值</span></span><br><span class="line">        visited[source] = <span class="number">1</span>;<span class="comment">// 这个头肯定访问过儿了</span></span><br><span class="line">        ans[source] = <span class="number">0</span>;<span class="comment">//00000</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vertexs - <span class="number">1</span>; i++)<span class="comment">//因为是每一个点  所以除了头 要确定N-1个点的最小值</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= vertexs; j++)<span class="comment">//看看当前讨论的点 和其他所有点的关系</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (visited[j] == <span class="number">0</span>)<span class="comment">//如果没背讨论过</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (g[source][j])<span class="comment">//而且source可以到达</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">int</span> dis = now_dis + g[source][j];<span class="comment">//到当前的距离 加上source到这个点的距离</span></span><br><span class="line">                        <span class="keyword">if</span> (dis &lt; ans[j])<span class="comment">//如果通过这个点到j  比之前的情况要小 贪心选择最小的</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            ans[j] = dis;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> minIndex = <span class="number">0</span>;<span class="comment">//这里是寻找我们的下一个source  这里贪心选择每一次都是最小的</span></span><br><span class="line">            <span class="keyword">while</span> (visited[minIndex] == <span class="number">1</span> || ans[minIndex] == INT_MAX)</span><br><span class="line">            &#123;</span><br><span class="line">                minIndex++;</span><br><span class="line">                <span class="keyword">if</span> (minIndex == vertexs + <span class="number">1</span>)<span class="comment">//这里是华点 如果有一些点到不了的话 那么minIndex就会爆 这里访问的话就会mem seg了</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (minIndex == vertexs + <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = minIndex; i &lt;= vertexs; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (visited[i] == <span class="number">0</span> &amp;&amp; ans[i] &lt; ans[minIndex])</span><br><span class="line">                &#123;</span><br><span class="line">                    minIndex = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="comment">//上面就是找到当前状态的最小值</span></span><br><span class="line">            now_dis = ans[minIndex];<span class="comment">//找到的当前状态的最小值 就是到达这个点的最小值了 根据贪心算法 不可能有更大的值</span></span><br><span class="line">            source = minIndex;</span><br><span class="line">            visited[source] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= vertexs; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (visited[i] == <span class="number">1</span>)</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; root &lt;&lt; <span class="string">&#x27;-&#x27;</span> &lt;&lt; i &lt;&lt; <span class="string">&#x27;:&#x27;</span> &lt;&lt; ans[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="走迷宫的最短路径-（矩阵两点的最短路径）"><a href="#走迷宫的最短路径-（矩阵两点的最短路径）" class="headerlink" title="走迷宫的最短路径 （矩阵两点的最短路径）"></a>走迷宫的最短路径 （矩阵两点的最短路径）</h1><p>题目就是 从给定的点 到指定的点 能不能走到 求最短路径 直接上代码吧</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> g[<span class="number">100</span>][<span class="number">100</span>];<span class="comment">//如果是0  那就是通路 如果是1  那就是障碍物</span></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">point</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    point(<span class="keyword">int</span> xn = <span class="number">0</span>, <span class="keyword">int</span> yn = <span class="number">0</span>) : x(xn), y(yn) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isEqual</span><span class="params">(<span class="keyword">const</span> point &amp;x, <span class="keyword">const</span> point &amp;y)</span><span class="comment">//两点是不是相等</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (x.x == y.x) &amp;&amp; (y.y == x.y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_nbr</span><span class="params">(<span class="keyword">const</span> point &amp;p, point &amp;neighbor)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (p.x &gt; <span class="number">0</span> &amp;&amp; g[p.x - <span class="number">1</span>][p.y] == <span class="number">0</span>)<span class="comment">//把上下左右  都给你访问一遍  相当于BFS  层次遍历</span></span><br><span class="line">    &#123;</span><br><span class="line">        neighbor.x = p.x - <span class="number">1</span>;</span><br><span class="line">        neighbor.y = p.y;</span><br><span class="line">        g[neighbor.x][neighbor.y] = <span class="number">1</span>;<span class="comment">//走过就要堵住</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (p.x &lt; n - <span class="number">1</span> &amp;&amp; g[p.x + <span class="number">1</span>][p.y] == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        neighbor.x = p.x + <span class="number">1</span>;</span><br><span class="line">        neighbor.y = p.y;</span><br><span class="line">        g[neighbor.x][neighbor.y] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (p.y &gt; <span class="number">0</span> &amp;&amp; g[p.x][p.y - <span class="number">1</span>] == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        neighbor.x = p.x;</span><br><span class="line">        neighbor.y = p.y - <span class="number">1</span>;</span><br><span class="line">        g[neighbor.x][neighbor.y] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (p.y &lt; m - <span class="number">1</span> &amp;&amp; g[p.x][p.y + <span class="number">1</span>] == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        neighbor.x = p.x;</span><br><span class="line">        neighbor.y = p.y + <span class="number">1</span>;</span><br><span class="line">        g[neighbor.x][neighbor.y] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tx, ty, sx, sy;</span><br><span class="line">    point p, neighbor;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; g[i][j];</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; sx &gt;&gt; sy &gt;&gt; tx &gt;&gt; ty;</span><br><span class="line">    sx--;</span><br><span class="line">    sy--;</span><br><span class="line">    tx--;</span><br><span class="line">    ty--;<span class="comment">//读取目标 然后因为矩阵从0开始 所以嗯 你懂得</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">queue</span>&lt;point&gt; q;</span><br><span class="line">    q.push(point(sx, sy));</span><br><span class="line">    g[sx][sy] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> step = <span class="number">0</span>, new_access = <span class="number">0</span>, old_access = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!q.empty() &amp;&amp; !isEqual(q.front(), point(tx, ty)))<span class="comment">//找光了 或者是找到了  就会跳出循环</span></span><br><span class="line">    &#123;</span><br><span class="line">        p = q.front();</span><br><span class="line">        <span class="keyword">while</span> (get_nbr(p, neighbor))<span class="comment">//访问每一个可以访问到的下一个点</span></span><br><span class="line">        &#123;</span><br><span class="line">            q.push(neighbor);</span><br><span class="line">            new_access++;<span class="comment">//这里储存的是 下一个 即将要遍历的层有多少个</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        q.pop();</span><br><span class="line">        old_access--;<span class="comment">//这里表示的是当前层有多少个顶点  处理完就--</span></span><br><span class="line">        <span class="keyword">if</span> (old_access == <span class="number">0</span>)<span class="comment">//当前层已经处理完了  让这个等于new  也就是下一层的点数</span></span><br><span class="line">        &#123;</span><br><span class="line">            old_access = new_access;</span><br><span class="line">            new_access = <span class="number">0</span>;</span><br><span class="line">            step++;<span class="comment">//步数++</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isEqual(q.front(), point(tx, ty)))<span class="comment">//如果是因为找到了就弹出 那么就输出step</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; step;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;No&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h1><p>并查集的概念 来自于我们有许多不同的集合 这些集合并不相交 这些集合里面内部的关系我们并不关心 我们只关心这一些集合之间相交的关系</p>
+<blockquote>
+<p>比如我们江湖上有许多门派 江湖上有上千万个人 不同人属于不同的门派 但是他们自己并不知道自己究竟是那一个门派的 只知道自己的引路人 自己的引路人同样也只知道自己的引路人 但是这样 江湖上两个陌生人见面 怎么样才能知道自己是不是同一个阵营呢？</p>
+</blockquote>
+<p>这里就应用到了并查集的知识 不同的门派代表不同的集合 我们并不关心这个集合里面的问题 只关心这两个人是不是同一个集合的 所以就是问题所在啦 我们可以在这个集合里面选择一个人作为我们所有人的老大 每个人都知道自己的老大就是他 新加入的人 引路人直接告诉他我们的老大就是他 并不需要把引路人当做老大 这样就 ok</p>
+<blockquote>
+<p>上面讲述的其实是压缩路径的算法 原本的算法是 引路人问引路人 一层一层找到老大 但是压缩路径之后就只有两层 这样的话 因为不关心集合里面的顺序 所以无所谓 加大的查找的速度</p>
+</blockquote>
+<p>这里上一道题 我们班级有很多的朋友圈 朋友的朋友就是我的朋友 下面给一个无向图 下面判断这个无向图是不是构成一个朋友圈 就是判断每一个在集合里面的人是不是和其他人都是朋友</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">father</span><span class="params">(<span class="number">150000</span>)</span></span>;<span class="comment">// 这里储存的是 自己的老大是谁</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findFather</span><span class="params">(<span class="keyword">int</span> x)</span><span class="comment">//找老大  找老大的途中 我们一开始 输入的边 意思就是我们只能找到自己的引路人 这个函数就是 引路人告诉他 老大就是我的引路人 一直递归下去 就会找到门派老大  这个递归是个华点 可以进行路径压缩  因为一开始的是没有压缩过的</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x == father[x])</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">return</span> father[x] = findFather(father[x]);<span class="comment">//赋值 告诉他  以后找我的老大就行了 别来找我了</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, x, y;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;ll&gt; <span class="title">num</span><span class="params">(<span class="number">150000</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)<span class="comment">//一开始很多个集合</span></span><br><span class="line">    &#123;</span><br><span class="line">        father[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)<span class="comment">//给定了边</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        <span class="keyword">int</span> q = findFather(x);<span class="comment">//找我的老大</span></span><br><span class="line">        <span class="keyword">int</span> p = findFather(y);<span class="comment">//同上</span></span><br><span class="line">        father[q] = p;<span class="comment">//老大相同 这一步相当于没做  如果老大不同  那就让一个老大 是另一个的老大 怎么 不服？  爪巴！ 这样的话 如果不进行路径压缩 无疑多了一层  所以这里体现了路径压缩的重要性</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)<span class="comment">//这个函数是计算每一个老大有多少个小弟  num数组代表的是 以findFather为老大的集合有多少个</span></span><br><span class="line">    &#123;</span><br><span class="line">        num[findFather(i)]++;</span><br><span class="line">    &#125;</span><br><span class="line">    ll sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)<span class="comment">//如果是valid的朋友圈 意思就是任意两个人都是朋友 那么这个朋友圈就有n*(n-1)/2 条边  然后把每一个朋友圈应该的边数加起来</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (num[i] &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum += (num[i] * (num[i] - <span class="number">1</span>)) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (sum == m)<span class="comment">//如果我们的真正的 输入的边m  等于这么多 那么就是valid 为什么呢 因为这里约定不会输入重复的边</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>图图图  秃秃秃  over！</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/23/CSS%E4%B9%8B%E9%9A%BE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%92%8C%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/" rel="prev" title="CSS之难题解决和知识补充">
+      <i class="fa fa-chevron-left"></i> CSS之难题解决和知识补充
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dijkstra-%E7%AE%97%E6%B3%95-%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84-%E6%97%A0%E5%90%91%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">Dijkstra 算法 求最短路径 无向图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%B0%E8%BF%B7%E5%AE%AB%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84-%EF%BC%88%E7%9F%A9%E9%98%B5%E4%B8%A4%E7%82%B9%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">走迷宫的最短路径 （矩阵两点的最短路径）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">并查集</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhongsihui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhongsihui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhongsh57" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhongsh57" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:839518416@qq.com" title="E-Mail → mailto:839518416@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhongsihui</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
