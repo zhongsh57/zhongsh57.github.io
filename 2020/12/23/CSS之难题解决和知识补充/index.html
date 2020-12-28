@@ -28,7 +28,7 @@
 <meta property="og:description" content="这里学习一下 CSS 很多的之前没用过的东西  div{     margin-bottom:20px; } @keyframes ants {   to {     background-position: 100%;   } } #test1 {   height: 200px;   width: 200px;   background: linear-gradient(to right, r">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-23T15:38:37.000Z">
-<meta property="article:modified_time" content="2020-12-27T15:14:46.622Z">
+<meta property="article:modified_time" content="2020-12-28T15:04:52.456Z">
 <meta property="article:author" content="Zhongsihui">
 <meta name="twitter:card" content="summary">
 
@@ -213,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-27 23:14:46" itemprop="dateModified" datetime="2020-12-27T23:14:46+08:00">2020-12-27</time>
+                <time title="Modified: 2020-12-28 23:04:52" itemprop="dateModified" datetime="2020-12-28T23:04:52+08:00">2020-12-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -404,6 +404,163 @@ div{
 <ul>
 <li>我们一般的两个值都是通过/分隔开的</li>
 </ul>
+<h1 id="实现菱形背景"><a href="#实现菱形背景" class="headerlink" title="实现菱形背景"></a>实现菱形背景</h1><p>这里面涉及到两个之前没用过的知识</p>
+<h2 id="css3-的-skew-属性"><a href="#css3-的-skew-属性" class="headerlink" title="css3 的 skew 属性"></a>css3 的 skew 属性</h2><p>这个属性可以在已有的图形下面进行制定边的变形 比如下面代码</p>
+<style>
+#test10 {
+  background-color: red;
+  height: 200px;
+  width: 300px;
+  margin: 20px;
+  padding: 10px;
+  font-size: 1.2em;
+  transform: skewX(-15deg);
+}
+#test11 {
+  height: 200px;
+  width: 200px;
+  position: relative;
+  text-align: center;
+  margin: 20px;
+}
+#test11::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: "";
+  background-color: blue;
+  z-index: -1;
+  transform: skewX(15deg);
+}
+#test12 {
+  height: 200px;
+  width: 200px;
+  margin: 20px;
+  background: red;
+  background: linear-gradient(-45deg, transparent 15px, red 0) right, linear-gradient(
+        45deg,
+        transparent 15px,
+        red 0
+      ) left;
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+}
+#test13 {
+        height: 200px;
+        width: 200px;
+        margin: 20px;
+        background: red;
+        background: radial-gradient(circle at top left, transparent 15px, red 0)
+          top left;
+      }
+#test14 {
+  height: 200px;
+  width: 200px;
+  margin: 30px;
+  background: red;
+  transform: perspective(15.5em) rotateX(45deg);
+  transform-origin: left;
+}
+#test15 {
+        height: 200px;
+        width: 200px;
+        margin: 30px;
+        background: red;
+        border-radius: 50%;
+        background-image: linear-gradient(to right, transparent 50%, blue 0);
+      }
+      #test15::before {
+        display: block;
+        content: "";
+        margin-left: 50%;
+        height: 100%;
+        background: red;
+        border-radius: 0 100% 100% 0 / 50%;
+        transform: perspective(0) rotateZ(20deg);
+        transform-origin: left;
+      }
+</style>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test10</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">skewX</span>(-<span class="number">15deg</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div id="test10">
+This is a diamond
+</div>
+
+<p>x 轴就是和 y 轴平行的两根边进行倾斜 正数代表逆时针倾斜 以右下角为圆心<br>y 轴就是和 x 轴平行的两根边进行倾斜 正数代表顺时针倾斜 以左上角为圆心</p>
+<p>但是这样的话 我们的内容也会跟着改变</p>
+<p>两种方法实现</p>
+<ol>
+<li>就是我们的两个 html 元素 对里面的元素再进行一次方向相反的 skew</li>
+<li>用我们的伪元素</li>
+</ol>
+<h2 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h2><p>一开始听到这个伪元素选择器 还不知道是个啥 其实我们的 first-line 和 letter 之类的都是<br>我们下面实现我们的菱形背景 用的就是伪元素选择器里面的 before 选择器 下面直接上代码</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test11</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#test11</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: blue;</span><br><span class="line">  <span class="attribute">z-index</span>: -<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">skewX</span>(<span class="number">15deg</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div id="test11">
+This is a diamond
+</div>
+
+<p>这上面就实现了我们的背景和我们的 content 的分开 不需要嵌套两个 html 元素 直接是 使用伪元素选择器创建了一个伪元素 相当于两个元素</p>
+<h1 id="实现切角"><a href="#实现切角" class="headerlink" title="实现切角"></a>实现切角</h1><p>切角直接用 linear-gradient 然后用 transparent 颜色就行 具体的代码上面有 下面讲的是如何实现两个切角</p>
+<p>这个时候就需要两个背景了 但是注意 这两个背景有新的语法 一个是背景的位置 一个是背景的尺寸 直接上代码</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test12</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(-<span class="number">45deg</span>, transparent <span class="number">15px</span>, red <span class="number">0</span>) right, <span class="built_in">linear-gradient</span>(</span><br><span class="line">        <span class="number">45deg</span>,</span><br><span class="line">        transparent <span class="number">15px</span>,</span><br><span class="line">        red <span class="number">0</span></span><br><span class="line">      ) left;</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">50%</span> <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div id="test12">
+</div>
+
+<p>上面的华点就是 两个背景图片的 position 一个是 right 一个是 left<br>还有下面背景的 no-repeat 和 background-size 实际上就是指定了每一块背景的宽度是 50% 高度是全部 然后两个门神 一个在左边 个在右边 然后分别设置我们熟悉的 linear-gradient</p>
+<blockquote>
+<p>如果要实现我们的四个切角的话 那就是 4 块背景 然后使用 top left 这种进行定位之后 在指定我们的 size 长和高都是 50%</p>
+</blockquote>
+<h2 id="实现凹陷的圆角边框"><a href="#实现凹陷的圆角边框" class="headerlink" title="实现凹陷的圆角边框"></a>实现凹陷的圆角边框</h2><p>这个时候就不能使用我们的 border-radius 应该用我们的 radial-gradient</p>
+<blockquote>
+<p>奇妙的是 radial-gradient 可以指定我们圆心的位置 四角或者是我们的 center 下面上代码</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test13</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(circle at top left, transparent <span class="number">15px</span>, red <span class="number">0</span>) top left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div id="test13"></div>
+
+<h1 id="实现梯形"><a href="#实现梯形" class="headerlink" title="实现梯形"></a>实现梯形</h1><p>这里我们复习一下 CSS3 的 3D 变幻</p>
+<p>这里复习一下坐标轴 x 轴 是水平的 y 轴是竖直的 z 轴是垂直于屏幕向外</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">X</th>
+<th align="center">Y</th>
+<th align="center">Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">正数</td>
+<td align="center">上边向里</td>
+<td align="center">右边向里</td>
+<td align="center">顺时针</td>
+</tr>
+</tbody></table>
+<p>所以实现梯形 直接 rotateX 就完事了</p>
+<p>下面是比较常见的代码 可以实现两边不同的梯形</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test14</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">perspective</span>(<span class="number">15.5em</span>) <span class="built_in">rotateX</span>(<span class="number">45deg</span>);</span><br><span class="line">  <span class="attribute">transform-origin</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div id="test14"></div>
+
+<h1 id="实现一个饼图"><a href="#实现一个饼图" class="headerlink" title="实现一个饼图"></a>实现一个饼图</h1><p>我们先来看看效果</p>
+<div id="test15"></div>
+
+<p>先上代码</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test15</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, transparent <span class="number">50%</span>, blue <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#test15</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">0</span> <span class="number">100%</span> <span class="number">100%</span> <span class="number">0</span> / <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">perspective</span>(<span class="number">0</span>) <span class="built_in">rotateZ</span>(<span class="number">20deg</span>);</span><br><span class="line">  <span class="attribute">transform-origin</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们一步一步讲述</p>
+<ol>
+<li>首先先创建我们的根本的圆形  各一半是我们想要的不同的颜色 这里用之前说到的linear-gradient</li>
+<li>然后设置圆角边框啥的  一个二色圆形实现</li>
+<li>然后设置伪元素  为什么这里不同position  relative 呢  因为我们的伪元素 before是默认覆盖的 我们这里要的就是覆盖的效果 而不是我们的沉底  如果是沉底 用了position  那么就用用top来定位 如果没有position absolute 那么直接用margin 定位</li>
+<li>这个时候 伪元素是一个矩形 无颜色  占整个圆形的右边50%</li>
+<li>直接把矩形用border-radius 变成半圆 然后设置旋转位置 进行旋转就行了</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此我们讲述了背景与边框以及  我们的形状的实现</p>
 
     </div>
 
@@ -484,7 +641,7 @@ div{
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2"><span class="nav-number">1.</span> <span class="nav-text">颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#border-%E6%88%91%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E7%A7%98%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">border 我不知道的秘密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#box-shadow"><span class="nav-number">3.</span> <span class="nav-text">box-shadow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#outline"><span class="nav-number">4.</span> <span class="nav-text">outline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%92%8C%E6%B0%B4%E5%B9%B3%E6%9D%A1%E7%BA%B9%E7%9A%84-CSS-%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.</span> <span class="nav-text">垂直和水平条纹的 CSS 实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%A1%8C%E5%B8%83-%E8%83%8C%E6%99%AF"><span class="nav-number">6.</span> <span class="nav-text">实现桌布 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%9C%86%E7%82%B9%E6%8E%92%E5%88%97"><span class="nav-number">7.</span> <span class="nav-text">实现圆点排列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%8B%E7%9B%98%E5%B8%83%E5%B1%80-%E5%9B%BD%E9%99%85%E8%B1%A1%E6%A3%8B"><span class="nav-number">8.</span> <span class="nav-text">棋盘布局 国际象棋</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B-%E5%AE%9E%E7%8E%B0%E8%9A%82%E8%9A%81%E8%A1%8C%E5%86%9B%E6%95%88%E6%9E%9C"><span class="nav-number">9.</span> <span class="nav-text">面试题之 实现蚂蚁行军效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%A4%AD%E5%9C%86%E5%8D%8A%E5%9C%86%E8%A7%92"><span class="nav-number">10.</span> <span class="nav-text">实现椭圆半圆角</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2"><span class="nav-number">1.</span> <span class="nav-text">颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#border-%E6%88%91%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E7%A7%98%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">border 我不知道的秘密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#box-shadow"><span class="nav-number">3.</span> <span class="nav-text">box-shadow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#outline"><span class="nav-number">4.</span> <span class="nav-text">outline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%92%8C%E6%B0%B4%E5%B9%B3%E6%9D%A1%E7%BA%B9%E7%9A%84-CSS-%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.</span> <span class="nav-text">垂直和水平条纹的 CSS 实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%A1%8C%E5%B8%83-%E8%83%8C%E6%99%AF"><span class="nav-number">6.</span> <span class="nav-text">实现桌布 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%9C%86%E7%82%B9%E6%8E%92%E5%88%97"><span class="nav-number">7.</span> <span class="nav-text">实现圆点排列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%8B%E7%9B%98%E5%B8%83%E5%B1%80-%E5%9B%BD%E9%99%85%E8%B1%A1%E6%A3%8B"><span class="nav-number">8.</span> <span class="nav-text">棋盘布局 国际象棋</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B-%E5%AE%9E%E7%8E%B0%E8%9A%82%E8%9A%81%E8%A1%8C%E5%86%9B%E6%95%88%E6%9E%9C"><span class="nav-number">9.</span> <span class="nav-text">面试题之 实现蚂蚁行军效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%A4%AD%E5%9C%86%E5%8D%8A%E5%9C%86%E8%A7%92"><span class="nav-number">10.</span> <span class="nav-text">实现椭圆半圆角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%8F%B1%E5%BD%A2%E8%83%8C%E6%99%AF"><span class="nav-number">11.</span> <span class="nav-text">实现菱形背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#css3-%E7%9A%84-skew-%E5%B1%9E%E6%80%A7"><span class="nav-number">11.1.</span> <span class="nav-text">css3 的 skew 属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">11.2.</span> <span class="nav-text">伪元素选择器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%87%E8%A7%92"><span class="nav-number">12.</span> <span class="nav-text">实现切角</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%87%B9%E9%99%B7%E7%9A%84%E5%9C%86%E8%A7%92%E8%BE%B9%E6%A1%86"><span class="nav-number">12.1.</span> <span class="nav-text">实现凹陷的圆角边框</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%A2%AF%E5%BD%A2"><span class="nav-number">13.</span> <span class="nav-text">实现梯形</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%A5%BC%E5%9B%BE"><span class="nav-number">14.</span> <span class="nav-text">实现一个饼图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">15.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
