@@ -597,7 +597,7 @@ This is a diamond
       </categories>
   </entry>
   <entry>
-    <title>Java数据类型Symbol</title>
+    <title>JavaScript数据类型Symbol</title>
     <url>/2020/11/09/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BSymbol/</url>
     <content><![CDATA[<p>js独特的数据类型Symbol 期间先介绍一下string类型的使用 然后开始正式介绍Symbol</p>
 <h1 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h1><p>String 有几个比较常见的spilce函数等等<br>常用的转义字符和C++的一样 但是如果你要原封不动的输出转义字符的话 有一个标签函数 类似于修饰器的函数可以进行修饰 </p>
@@ -914,6 +914,119 @@ This is a diamond
 ]]></content>
       <categories>
         <category>马原</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>CSS之视觉效果和字体排印</title>
+    <url>/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[<p>这里讲一下 css 的第四章和第五章</p>
+<h1 id="单侧投影和双侧投影"><a href="#单侧投影和双侧投影" class="headerlink" title="单侧投影和双侧投影"></a>单侧投影和双侧投影</h1><p>首先讲一下我们的 box-shadow box-shadow 有若干个参数</p>
+<ol>
+<li>水平偏移量</li>
+<li>竖直偏移量</li>
+<li>模糊距离</li>
+<li>缩放尺寸</li>
+<li>颜色</li>
+</ol>
+<p>我们的 shadow 实际上就是在我们的 box 后面 画一个纯色的矩形 然后以左上角为原点 进行平移 然后我们的模糊的尺寸 会影响到我们之际的大小我们实际的 shadow 大小 如果设置了模糊的话 那么就会比实际的要大<br>这里实现我们的单侧阴影就是利用我们的扩张值和我们的模糊值 下面直接上我们的 两侧阴影的代码</p>
+<style>
+#test21 {
+  height: 200px;
+  width: 200px;
+  margin: 30px;
+  background: red;
+  box-shadow: 10px 0px 10px -10px black, -10px 0px 10px -10px black;
+}
+
+#test22 {
+        height: 200px;
+        width: 200px;
+        margin: 30px;
+        background: linear-gradient(
+              45deg,
+              rgba(255, 0, 0, 0.8) 50%,
+              transparent 0
+            )
+            100% 0 / 2.1em 2.1em no-repeat,
+          linear-gradient(-135deg, transparent 1.5em, #85a 0);
+      }
+</style>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#test21</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">0px</span> <span class="number">10px</span> -<span class="number">10px</span> black, -<span class="number">10px</span> <span class="number">0px</span> <span class="number">10px</span> -<span class="number">10px</span> black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div id="test21"></div>
+
+<p>上面就是利用了我们的模糊进行扩张 然后利用扩展的负值进行把我们不需要的阴影给中和掉</p>
+<h1 id="实现主色调图片处理-hover-恢复"><a href="#实现主色调图片处理-hover-恢复" class="headerlink" title="实现主色调图片处理 hover 恢复"></a>实现主色调图片处理 hover 恢复</h1><p>什么意思呢 就是在图片上 加上一层主色调 比如变灰度照片 然后 hover 的时候 恢复 这里本来需要使用滤镜 但是太复杂 这里给出了一些比较常见的实现方式</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#test15</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">hsl</span>(<span class="number">335</span>, <span class="number">100%</span>, <span class="number">50%</span>);</span><br><span class="line">  <span class="attribute">background-blend-mode</span>: luminosity;</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(./temp/avatar.jpg);</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">0px</span> <span class="number">10px</span> -<span class="number">10px</span> black, -<span class="number">10px</span> <span class="number">0px</span> <span class="number">10px</span> -<span class="number">10px</span> black;</span><br><span class="line">  <span class="attribute">transition</span>: <span class="number">0.5s</span> background-color;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#test15</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里面的华点就是我们的 blend-mode 意思就是我们的背景就是可以混合模式 颜色和图片混合在一起</p>
+<h1 id="毛玻璃效果-感觉像是一层玻璃"><a href="#毛玻璃效果-感觉像是一层玻璃" class="headerlink" title="毛玻璃效果 感觉像是一层玻璃"></a>毛玻璃效果 感觉像是一层玻璃</h1><p>先上效果图</p>
+<img src="/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maoboli.png" class="" title="This is an example image">
+
+<p>下面上代码</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#test15</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">z-index</span>: -<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(./temp/avatar.jpg) <span class="number">0</span> / cover fixed;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#test16</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">hsla</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100%</span>, <span class="number">0.3</span>);</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#test16</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">z-index</span>: -<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin</span>: -<span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(./temp/avatar.jpg) <span class="number">0</span> / cover fixed;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">blur</span>(<span class="number">7px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码 我们直接一步一步来</p>
+<ol>
+<li>首先创建了一个底盘的 div 然后潜逃了一层 div 第二层 div 用来放我们的内容</li>
+<li>其次 我们把我们的底盘的背景设置为一个图片 然后我们的内容设置一个 before 的伪元素 这个伪元素也是以我们的图片为背景 然后设置背景的样式 这样就可以实现我们的图片的无缝衔接</li>
+<li>然后处理好我们的 position 关系 z-index 设置好我们的层</li>
+<li>重点来了 因为们的模糊滤镜会把边缘也一起模糊掉 这样的话就没有玻璃的质感 就是明显的边缘 所以我们需要设置 margin 为负数这样对图片进行放大 然后 overflow hidden 就可以切割出我们的边缘效果</li>
+<li>还需要注意的就是 如果我们要对毛玻璃加上颜色 那就对我们的内层 div 加上背景颜色注意 一定要是透明的 也就是需要的颜色 然后 alpha 是透明的 这样才能看到我们后面的 blur 滤镜之后的背景图片 实现毛玻璃</li>
+</ol>
+<blockquote>
+<p>这里补充很多我们的 background 的语法</p>
+</blockquote>
+<blockquote>
+<p>简写的顺序如下: bg-color || bg-image || bg-position [ / bg-size]? || bg-repeat || bg-attachment || bg-origin || bg-clip</p>
+</blockquote>
+<p>这里面的 补充下面几点知识</p>
+<ul>
+<li>background-origin: 设置背景图像显示的原点[background-position 相对定位的原点];</li>
+<li>background-clip: 设置背景图像向外剪裁的区域;</li>
+<li>background-attachment: 指定背景图像是滚动还是固定; 就跟 absolute 一样</li>
+<li>background-position: 设置背景图像的位置; 这里面可以设置我们的 top right 之类的 如果是 0 就直接一个 0</li>
+<li>background-size: 设置背景图像的大小; 这里面 我们一般有几种填充的方法<ul>
+<li>一种是 cover 就是覆盖 但是会保持原来的比例 不会在高和宽上面进行延伸 所以可能图片会超出范围 然后超出的会被直接剪切</li>
+<li>一种是 contain 图片会在原来的比例下 保持在 div 里面</li>
+<li>一种是 100% 会被拉伸</li>
+</ul>
+</li>
+</ul>
+<p>下面需要注意的就是</p>
+<blockquote>
+<ol>
+<li>background-position 和 background-size 属性, 之间需使用/分隔, 且 position 值在前, size 值在后。 这个相当于一个语法糖 并不是之前我们的简写 上面的代码有用到</li>
+<li>如果同时使用 background-origin 和 background-clip 属性, origin 属性值需在 clip 属性值之前, 如果 origin 与 clip 属性值相同, 则可只设置一个值。</li>
+<li>origin 是背景开始的地方 可以是</li>
+</ol>
+<ul>
+<li>padding-box</li>
+<li>border-box</li>
+<li>content-box</li>
+</ul>
+<ol start="4">
+<li>这里我们的 clip 只是简单地剪切 并不能指定开始 所以直接 clip 可能会丢失</li>
+</ol>
+</blockquote>
+<h1 id="实现书页折角"><a href="#实现书页折角" class="headerlink" title="实现书页折角"></a>实现书页折角</h1><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#test22</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="number">45deg</span>, rgba(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.8</span>) <span class="number">50%</span>, transparent <span class="number">0</span>) <span class="number">100%</span></span><br><span class="line">      <span class="number">0</span> / <span class="number">2.1em</span> <span class="number">2.1em</span> no-repeat, <span class="built_in">linear-gradient</span>(</span><br><span class="line">      -<span class="number">135deg</span>,</span><br><span class="line">      transparent <span class="number">1.5em</span>,</span><br><span class="line">      #<span class="number">85</span>a <span class="number">0</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div id="test22"></div>
+
+<p>用两个背景图片 linear-gradient 一个是形成右上角的 transparent 一个形成我们折角的覆盖</p>
+<blockquote>
+<p>这里有一个需要注意的点就是 如果我们有多个背景图片 那么先声明的会覆盖在后声明的上面 不信你改动这两个位置试试</p>
+</blockquote>
+<h1 id="巧妙利用选择器进行换行等布局"><a href="#巧妙利用选择器进行换行等布局" class="headerlink" title="巧妙利用选择器进行换行等布局"></a>巧妙利用选择器进行换行等布局</h1><p>这里拿的是我们的自定义表格<br>如果我们要实现下面的情况</p>
+<img src="/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/biaoge.png" class="" title="This is an example image">
+
+<p>怎么实现呢？ 我们的 dt 和 dd 都是 block 元素 默认换行 所以直接上下面的代码 细细品味吧</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dt</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;\A&quot;</span>;</span><br><span class="line">  <span class="attribute">white-space</span>: pre;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dt</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dd</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">0.25em</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>选择器的奥妙 细细品味吧 这里不多说了</p>
+]]></content>
+      <categories>
+        <category>CSS</category>
       </categories>
   </entry>
 </search>
