@@ -1232,6 +1232,11 @@ input[type="checkbox"]:checked + label::before {
   </div>
   <img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maliao.png" alt="" />
 </div>
+
+<p>前半张图 右下角可以调整大小哦</p>
+<blockquote>
+<p>这里加上一个小提示  首先我们盒子的高度 不去设置他的高度 那么高度就是默认为content的高度<br>还有一点就是  如果一个属性你要让他消失 相当于在chrome的开发者工具里面取消勾选 那么可以考虑设置为none</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>CSS</category>
