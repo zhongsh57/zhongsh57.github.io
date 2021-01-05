@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一笔画（欧拉图）欧拉图就是一笔恰好经过所有点一次 除了这个回路 不能有多的路半欧拉图就是可以一笔画的图 定理就是 对于无向图 首先给定一个连通连通图 而且没有奇度顶点 那么就是欧拉图连通图 半欧拉图 恰有两个奇数顶点 可能有多个半欧拉图或者欧拉图 下面直接介绍简单的判断方法 123456789101112131415161718192021222324252627#include&lt;cstdi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法之最小生成树Prim算法和图的概念">
+<meta property="og:url" content="http://example.com/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91Prim%E7%AE%97%E6%B3%95%E5%92%8C%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="Dream Starts Here">
+<meta property="og:description" content="一笔画（欧拉图）欧拉图就是一笔恰好经过所有点一次 除了这个回路 不能有多的路半欧拉图就是可以一笔画的图 定理就是 对于无向图 首先给定一个连通连通图 而且没有奇度顶点 那么就是欧拉图连通图 半欧拉图 恰有两个奇数顶点 可能有多个半欧拉图或者欧拉图 下面直接介绍简单的判断方法 123456789101112131415161718192021222324252627#include&lt;cstdi">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-05T13:48:01.000Z">
+<meta property="article:modified_time" content="2021-01-05T15:53:46.784Z">
+<meta property="article:author" content="Zhongsihui">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91Prim%E7%AE%97%E6%B3%95%E5%92%8C%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>数据结构与算法之最小生成树Prim算法和图的概念 | Dream Starts Here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Dream Starts Here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91Prim%E7%AE%97%E6%B3%95%E5%92%8C%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhongsihui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dream Starts Here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构与算法之最小生成树Prim算法和图的概念
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-05 21:48:01 / Modified: 23:53:46" itemprop="dateCreated datePublished" datetime="2021-01-05T21:48:01+08:00">2021-01-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="一笔画（欧拉图）"><a href="#一笔画（欧拉图）" class="headerlink" title="一笔画（欧拉图）"></a>一笔画（欧拉图）</h1><p>欧拉图就是一笔恰好经过所有点一次 除了这个回路 不能有多的路<br>半欧拉图就是可以一笔画的图</p>
+<p>定理就是 对于无向图 首先给定一个连通<br>连通图 而且没有奇度顶点 那么就是欧拉图<br>连通图 半欧拉图 恰有两个奇数顶点</p>
+<p>可能有多个半欧拉图或者欧拉图 下面直接介绍简单的判断方法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">10007</span>];</span><br><span class="line"><span class="keyword">int</span> n,m,ans,x,y;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y;</span><br><span class="line">        a[x]++; a[y]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="keyword">if</span>(a[i]%<span class="number">2</span>==<span class="number">1</span>) ans++;</span><br><span class="line">    <span class="keyword">if</span> (n==<span class="number">6</span>&amp;&amp;ans==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ans!=<span class="number">0</span>) <span class="built_in">cout</span>&lt;&lt;ans/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">cout</span>&lt;&lt;ans+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面就是 每一个边 都给两个顶点加上度数 然后统计度数<br>如果当前度数是偶数 那就不管 如果是奇数 那么奇数的数目++<br>最后 根据半欧拉图的性质 奇数的数目/2 就是笔画的数目<br>这有个 BUG 如果是个环 那么所有点都是偶数 那么奇数的点就是 0</p>
+<p>0/2 还是 0 这个时候 ans+1 只是一个环 如果有多个环怎么办呢？</p>
+<p>我的粗糙的思路就是 创建一个并查集 然后 DFS 遍历再用度数</p>
+<h1 id="最小生成树-Prim-算法"><a href="#最小生成树-Prim-算法" class="headerlink" title="最小生成树 Prim 算法"></a>最小生成树 Prim 算法</h1><p>这个算法就是 带权有向图 求最小的生成树 就是一个可以通过所有顶点的 最小的连通图</p>
+<p>下面的这个图就是 给定了两个城市之间的路径长度 求构建一个地铁网络最短的路径</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line"><span class="keyword">int</span> road[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span> low[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getPath</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123; <span class="comment">//输入边的路径</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; road[i][j]; <span class="comment">//i到j的长度是多少</span></span><br><span class="line">        &#125;</span><br><span class="line">        low[i] = road[<span class="number">0</span>][i]; <span class="comment">//因为任意一个点开始讨论都是一样的的 这里默认从0这个点开始讨论 所以到每个点的距离的最小值就是0到的距离</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//low数组就是 已经连在一起的点这个集合  到没有连在一起的点的集合的每个点的最小值  一开始已经讨论的集合只有0这个点</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getAns</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, pos, res = <span class="number">0</span>, min;</span><br><span class="line">    <span class="keyword">int</span> visited[N] = &#123;<span class="number">0</span>&#125;; <span class="comment">//都没有访问过</span></span><br><span class="line">    visited[<span class="number">0</span>] = <span class="number">1</span>;       <span class="comment">//0已经如入伙了</span></span><br><span class="line">    pos = <span class="number">0</span>;              <span class="comment">//入伙集合到未入伙集合最小边的终点（从没入伙集合结束的终点）</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; N; i++)</span><br><span class="line">    &#123;                <span class="comment">//要把N-1个点拉入伙   默认0入伙</span></span><br><span class="line">        min = <span class="number">10000</span>; <span class="comment">//当前的入伙集合到未入伙集合的最小值</span></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt; N; j++)</span><br><span class="line">        &#123; <span class="comment">//遍历所有的点 除了0</span></span><br><span class="line">            <span class="keyword">if</span> (visited[j] == <span class="number">0</span> &amp;&amp; min &gt; low[j])</span><br><span class="line">            &#123;                 <span class="comment">//还没入伙 而且到这个点的边比最小的边小</span></span><br><span class="line">                min = low[j]; <span class="comment">//更新最小值</span></span><br><span class="line">                pos = j;      <span class="comment">//更新最小边的终点</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res += min;       <span class="comment">//选到了  就是这个边 加上权值 因为要求最小权</span></span><br><span class="line">        visited[pos] = <span class="number">1</span>; <span class="comment">//拉入伙</span></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; N; j++)</span><br><span class="line">        &#123; <span class="comment">//拉入伙的点 更新一下新的集合到未访问集合的边的最小值</span></span><br><span class="line">            <span class="keyword">if</span> (visited[j] == <span class="number">0</span> &amp;&amp; low[j] &gt; road[pos][j])</span><br><span class="line">                low[j] = road[pos][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; N;</span><br><span class="line">        getPath();</span><br><span class="line">        <span class="keyword">int</span> ans = getAns();</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="坐缆车"><a href="#坐缆车" class="headerlink" title="坐缆车"></a>坐缆车</h1><p>M 山上设置了 n 个只下山不上山的缆车点 1,2…n。游客可以从山上的某一点上缆车，并从其下方任意点下缆车。缆车点 i 到缆车点 j 之间的费用为 r（i，j），1&lt;=i&lt;=j&lt;=n。试计算从山顶 1 到山脚 n 坐缆车所需的最少费用。<br>输入格式：<br>第一行一个正整数 n，表示有 n 个缆车点，接下来 n-1 行是一个半矩阵,当前行表示当前点按顺序到其下方点的费用 r(i，j)，从点 1 开始。<br>输出格式：<br>一个整数，表示最小费用</p>
+<p>输入样例<br>3<br>5 15（1 到 2 的费用为 5,1 到 3 的费用为 15）<br>7（2 到 3 的费用为 7）</p>
+<p>这里面比较困惑的就是半矩阵 半矩阵是个啥咧<br>我们平常说的邻接矩阵就是 两个点互相连接 但是如果是有向图的话 那么就是半矩阵啦 我们存半矩阵和邻接矩阵一样存就行啦<br>但是还有一点 半矩阵是不会包含自己到自己的哦</p>
+<p>上代码 之前讲过的代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> vertexs = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> edges = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; vertexs ;</span><br><span class="line">        <span class="keyword">int</span> g[vertexs + <span class="number">1</span>][vertexs + <span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(vertexs + <span class="number">1</span>, INT_MAX)</span></span>;<span class="comment">//我们的答案 第i个表示从source到i的最小值</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">visited</span><span class="params">(vertexs + <span class="number">1</span>, <span class="number">0</span>)</span></span>;<span class="comment">//是不是已经讨论过了  也就是最小已经是确定的</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= vertexs; i++)<span class="comment">//邻接矩阵</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = i+<span class="number">1</span>;k&lt;=vertexs;k++)&#123;</span><br><span class="line">                <span class="built_in">cin</span>&gt;&gt;g[i][k];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> source = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> root = source;</span><br><span class="line">        <span class="keyword">int</span> now_dis = <span class="number">0</span>;<span class="comment">//当前  从source到当前讨论的这个顶点  距离最小值</span></span><br><span class="line">        visited[source] = <span class="number">1</span>;<span class="comment">// 这个头肯定访问过儿了</span></span><br><span class="line">        ans[source] = <span class="number">0</span>;<span class="comment">//00000</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vertexs - <span class="number">1</span>; i++)<span class="comment">//因为是每一个点  所以除了头 要确定N-1个点的最小值</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= vertexs; j++)<span class="comment">//看看当前讨论的点 和其他所有点的关系</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (visited[j] == <span class="number">0</span>)<span class="comment">//如果没背讨论过</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (g[source][j])<span class="comment">//而且source可以到达</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">int</span> dis = now_dis + g[source][j];<span class="comment">//到当前的距离 加上source到这个点的距离</span></span><br><span class="line">                        <span class="keyword">if</span> (dis &lt; ans[j])<span class="comment">//如果通过这个点到j  比之前的情况要小 贪心选择最小的</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            ans[j] = dis;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> minIndex = <span class="number">0</span>;<span class="comment">//这里是寻找我们的下一个source  这里贪心选择每一次都是最小的</span></span><br><span class="line">            <span class="keyword">while</span> (visited[minIndex] == <span class="number">1</span> || ans[minIndex] == INT_MAX)</span><br><span class="line">            &#123;</span><br><span class="line">                minIndex++;</span><br><span class="line">                <span class="keyword">if</span> (minIndex == vertexs + <span class="number">1</span>)<span class="comment">//这里是华点 如果有一些点到不了的话 那么minIndex就会爆 这里访问的话就会mem seg了</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (minIndex == vertexs + <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = minIndex; i &lt;= vertexs; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (visited[i] == <span class="number">0</span> &amp;&amp; ans[i] &lt; ans[minIndex])</span><br><span class="line">                &#123;</span><br><span class="line">                    minIndex = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="comment">//上面就是找到当前状态的最小值</span></span><br><span class="line">            now_dis = ans[minIndex];<span class="comment">//找到的当前状态的最小值 就是到达这个点的最小值了 根据贪心算法 不可能有更大的值</span></span><br><span class="line">            source = minIndex;</span><br><span class="line">            visited[source] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// for (int i = 1; i &lt;= vertexs; i++)</span></span><br><span class="line">        <span class="comment">// &#123;</span></span><br><span class="line">        <span class="comment">//     if (visited[i] == 1)</span></span><br><span class="line">        <span class="comment">//         cout &lt;&lt; root &lt;&lt; &#x27;-&#x27; &lt;&lt; i &lt;&lt; &#x27;:&#x27; &lt;&lt; ans[i] &lt;&lt; endl;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans[vertexs];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用的是之前讲过的 dijikstra 算法 求的就是 1 到 n 的而已</p>
+<h1 id="食物链的条数"><a href="#食物链的条数" class="headerlink" title="食物链的条数"></a>食物链的条数</h1><p>给定一个有向图 求食物链的条数 和生物的概念一样 这里不赘述</p>
+<p>这一道题里面讲述的就是</p>
+<ol>
+<li>记忆化的搜索  搜过之后  就知道这个点后面有多少条了  直接加上就不用再搜索  其实就是DP提高时间效率</li>
+<li>DFS 的变形</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line">ll ans = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; E[<span class="number">5050</span>];<span class="comment">//很多个数组的数组</span></span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">5050</span>];<span class="comment">//当前是不是食物链的起点</span></span><br><span class="line"><span class="keyword">int</span> s[<span class="number">5050</span>];<span class="comment">//DP的memory</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> idx)</span><span class="comment">//讨论当前点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (E[idx].size() == <span class="number">0</span>)<span class="comment">//邻接表如果已经没有出度了  那么就是顶级消费者</span></span><br><span class="line">        <span class="keyword">return</span> s[idx] = <span class="number">1</span>;<span class="comment">//这个时候的  当前这个点后面的  包括当前这个点的结果可以是1点</span></span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;<span class="comment">//如果不是顶级消费者</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; E[idx].size(); i++)<span class="comment">//讨论下面的点  也就是当前不是最高消费者的  他们的天敌</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> t = E[idx][i];<span class="comment">//讨论他们的天地</span></span><br><span class="line">        res += s[t] ? s[t] : dfs(t);<span class="comment">//这里的三目运算符  如果当前的天敌没有被讨论过 也就是当前的天敌如果mem是0  那么就需要进行讨论 如果天敌讨论过了 那么直接进行运算就行了</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s[idx] = res;<span class="comment">//记录当前的记忆</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getPath</span><span class="params">()</span><span class="comment">//邻接表的建立</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> x, y;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        E[x].push_back(y);<span class="comment">//这里是邻接表的简历 其实就是当前点可达的点的集合</span></span><br><span class="line">        vis[y] = <span class="literal">true</span>;<span class="comment">//y是被消费者 肯定不是生产者 不能是食物链的起点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getAns</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!vis[i])<span class="comment">//如果是起点</span></span><br><span class="line">            ans = (ans + dfs(i));<span class="comment">//开始搜  加上当前结果</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    getPath();</span><br><span class="line">    getAns();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>图论就到这里啦  图图图  秃秃秃</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/" rel="prev" title="CSS之视觉效果和字体排印和用户体验">
+      <i class="fa fa-chevron-left"></i> CSS之视觉效果和字体排印和用户体验
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E7%AC%94%E7%94%BB%EF%BC%88%E6%AC%A7%E6%8B%89%E5%9B%BE%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一笔画（欧拉图）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-Prim-%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">最小生成树 Prim 算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9D%90%E7%BC%86%E8%BD%A6"><span class="nav-number">3.</span> <span class="nav-text">坐缆车</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A3%9F%E7%89%A9%E9%93%BE%E7%9A%84%E6%9D%A1%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">食物链的条数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhongsihui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhongsihui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhongsh57" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhongsh57" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:839518416@qq.com" title="E-Mail → mailto:839518416@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhongsihui</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
