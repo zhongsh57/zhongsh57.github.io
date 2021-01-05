@@ -918,7 +918,7 @@ This is a diamond
   </entry>
   <entry>
     <title>CSS之视觉效果和字体排印和用户体验</title>
-    <url>/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/</url>
+    <url>/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/</url>
     <content><![CDATA[<p>这里讲一下 css 的第四章和第五章</p>
 <h1 id="单侧投影和双侧投影"><a href="#单侧投影和双侧投影" class="headerlink" title="单侧投影和双侧投影"></a>单侧投影和双侧投影</h1><p>首先讲一下我们的 box-shadow box-shadow 有若干个参数</p>
 <ol>
@@ -1059,7 +1059,7 @@ input[type="checkbox"]:checked + label::before {
 
 <p>这里面的华点就是我们的 blend-mode 意思就是我们的背景就是可以混合模式 颜色和图片混合在一起</p>
 <h1 id="毛玻璃效果-感觉像是一层玻璃"><a href="#毛玻璃效果-感觉像是一层玻璃" class="headerlink" title="毛玻璃效果 感觉像是一层玻璃"></a>毛玻璃效果 感觉像是一层玻璃</h1><p>先上效果图</p>
-<img src="/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maoboli.png" class="" title="This is an example image">
+<img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maoboli.png" class="" title="This is an example image">
 
 <p>下面上代码</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#test15</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">z-index</span>: -<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(./temp/avatar.jpg) <span class="number">0</span> / cover fixed;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#test16</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">hsla</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100%</span>, <span class="number">0.3</span>);</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#test16</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">z-index</span>: -<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin</span>: -<span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(./temp/avatar.jpg) <span class="number">0</span> / cover fixed;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">blur</span>(<span class="number">7px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1116,7 +1116,7 @@ input[type="checkbox"]:checked + label::before {
 <p>这里有一个需要注意的点就是 如果我们有多个背景图片 那么先声明的会覆盖在后声明的上面 不信你改动这两个位置试试</p>
 </blockquote>
 <h1 id="巧妙利用选择器进行换行等布局"><a href="#巧妙利用选择器进行换行等布局" class="headerlink" title="巧妙利用选择器进行换行等布局"></a>巧妙利用选择器进行换行等布局</h1><p>这里拿的是我们的自定义表格<br>如果我们要实现下面的情况</p>
-<img src="/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/biaoge.png" class="" title="This is an example image">
+<img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/biaoge.png" class="" title="This is an example image">
 
 <p>怎么实现呢？ 我们的 dt 和 dd 都是 block 元素 默认换行 所以直接上下面的代码 细细品味吧</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dt</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;\A&quot;</span>;</span><br><span class="line">  <span class="attribute">white-space</span>: pre;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dt</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dd</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">0.25em</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1198,6 +1198,40 @@ input[type="checkbox"]:checked + label::before {
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> popButton = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;popButton&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> closeButton = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;closeButton&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> card = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;popBoxContainer&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> layer = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;popBoxLayer&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popOut</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  layer[<span class="number">0</span>].style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">  card[<span class="number">0</span>].style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popIn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  layer[<span class="number">0</span>].style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">  card[<span class="number">0</span>].style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>很简单的啦</p>
+<h1 id="实现两张图骨片滑动比对"><a href="#实现两张图骨片滑动比对" class="headerlink" title="实现两张图骨片滑动比对"></a>实现两张图骨片滑动比对</h1><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;below&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;over&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./temp/avatar.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./temp/avatar.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#below</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#below</span> &gt; <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">blur</span>(<span class="number">2px</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#over</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">resize</span>: horizontal;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<style>
+  #below {
+    position: relative;
+    display: inline-block;
+  }
+  #below > img {
+    filter: blur(2px);
+  }
+  #over {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    resize: horizontal;
+    overflow: hidden;
+    width: 50%;
+    max-width: 100%;
+    z-index:5;
+  }
+  #overimg{
+    max-width: none;
+    margin-bottom:0;
+  }
+</style>
+<div id="below">
+  <div id="over">
+    <img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maliao.png" alt="" id="overimg"/>
+  </div>
+  <img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maliao.png" alt="" />
+</div>
 ]]></content>
       <categories>
         <category>CSS</category>
