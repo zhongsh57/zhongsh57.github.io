@@ -22,7 +22,7 @@
 
   <meta name="description" content="这里讲一下 css 的第四章和第五章 单侧投影和双侧投影首先讲一下我们的 box-shadow box-shadow 有若干个参数  水平偏移量 竖直偏移量 模糊距离 缩放尺寸 颜色  我们的 shadow 实际上就是在我们的 box 后面 画一个纯色的矩形 然后以左上角为原点 进行平移 然后我们的模糊的尺寸 会影响到我们之际的大小我们实际的 shadow 大小 如果设置了模糊的话 那么就会比实际">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS之视觉效果和字体排印">
+<meta property="og:title" content="CSS之视觉效果和字体排印和用户体验">
 <meta property="og:url" content="http://example.com/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/index.html">
 <meta property="og:site_name" content="Dream Starts Here">
 <meta property="og:description" content="这里讲一下 css 的第四章和第五章 单侧投影和双侧投影首先讲一下我们的 box-shadow box-shadow 有若干个参数  水平偏移量 竖直偏移量 模糊距离 缩放尺寸 颜色  我们的 shadow 实际上就是在我们的 box 后面 画一个纯色的矩形 然后以左上角为原点 进行平移 然后我们的模糊的尺寸 会影响到我们之际的大小我们实际的 shadow 大小 如果设置了模糊的话 那么就会比实际">
@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maoboli.png">
 <meta property="og:image" content="http://example.com/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/biaoge.png">
 <meta property="article:published_time" content="2020-12-29T11:02:27.000Z">
-<meta property="article:modified_time" content="2020-12-29T15:40:23.863Z">
+<meta property="article:modified_time" content="2020-12-30T12:39:45.924Z">
 <meta property="article:author" content="Zhongsihui">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maoboli.png">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>CSS之视觉效果和字体排印 | Dream Starts Here</title>
+  <title>CSS之视觉效果和字体排印和用户体验 | Dream Starts Here</title>
   
 
 
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSS之视觉效果和字体排印
+          CSS之视觉效果和字体排印和用户体验
         </h1>
 
         <div class="post-meta">
@@ -208,10 +208,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-12-29 19:02:27 / Modified: 23:40:23" itemprop="dateCreated datePublished" datetime="2020-12-29T19:02:27+08:00">2020-12-29</time>
+              <time title="Created: 2020-12-29 19:02:27" itemprop="dateCreated datePublished" datetime="2020-12-29T19:02:27+08:00">2020-12-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-30 20:39:45" itemprop="dateModified" datetime="2020-12-30T20:39:45+08:00">2020-12-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -244,6 +250,66 @@
 </ol>
 <p>我们的 shadow 实际上就是在我们的 box 后面 画一个纯色的矩形 然后以左上角为原点 进行平移 然后我们的模糊的尺寸 会影响到我们之际的大小我们实际的 shadow 大小 如果设置了模糊的话 那么就会比实际的要大<br>这里实现我们的单侧阴影就是利用我们的扩张值和我们的模糊值 下面直接上我们的 两侧阴影的代码</p>
 <style>
+@keyframes topDown {
+        from {
+          top: -300px;
+          opacity: 0;
+        }
+        to {
+          top: 95%;
+          opacity: 1;
+        }
+      }
+      .popBoxContainer {
+        display: none;
+        position: fixed;
+        z-index: 11;
+        height: 200px;
+        width: 200px;
+        top: 95%;
+        right: 0;
+        left: 40%;
+        bottom: 0;
+        background: rgb(78, 201, 180);
+        animation: topDown 0.4s;
+      }
+      .popBoxHeader {
+        background-color: rosybrown;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .popBoxLayer {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: none;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 10;
+      }
+input[type="checkbox"] {
+  position: absolute; /*这两行实现了隐藏效果 以后就这么干就行了 原理太奇怪了*/
+  clip: rect(0, 0, 0, 0);
+}
+input[type="checkbox"] + label::before {
+  content: "\a0"; /*空格*/
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 0.2em;
+  border-radius: 0.2em;
+  background: silver;
+  line-height: 0.65;
+  text-indent: 0.15em;
+}
+input[type="checkbox"]:checked + label::before {
+  content: "\2713";
+  background-color: yellowgreen;
+}
 #test21 {
   height: 200px;
   width: 200px;
@@ -264,7 +330,44 @@
             100% 0 / 2.1em 2.1em no-repeat,
           linear-gradient(-135deg, transparent 1.5em, #85a 0);
       }
+
+      #test23 {
+        line-height: 1.5;
+        background: beige;
+        background-size: auto 3em;
+        background-image: linear-gradient(
+          rgba(0, 0, 0, 0.2) 50%,
+          transparent 0
+        );
+      }
+
+      #test24 {
+  background-clip: content-box;
+  height: 200px;
+  width: 200px;
+  background-color: burlywood;
+  border-radius: 50% 50%;
+  font-size: 35px;
+  cursor: pointer;
+  margin-left: 80px;
+  border: 15px solid transparent;
+}
 </style>
+
+<script>
+      var popButton = document.getElementsByClassName("popButton");
+      var closeButton = document.getElementsByClassName("closeButton");
+      var card = document.getElementsByClassName("popBoxContainer");
+      var layer = document.getElementsByClassName("popBoxLayer");
+      function popOut() {
+        layer[0].style.display = "block";
+        card[0].style.display = "block";
+      }
+      function popIn() {
+        layer[0].style.display = "none";
+        card[0].style.display = "none";
+      }
+    </script>
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test21</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">0px</span> <span class="number">10px</span> -<span class="number">10px</span> black, -<span class="number">10px</span> <span class="number">0px</span> <span class="number">10px</span> -<span class="number">10px</span> black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -337,7 +440,84 @@
 
 <p>怎么实现呢？ 我们的 dt 和 dd 都是 block 元素 默认换行 所以直接上下面的代码 细细品味吧</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dt</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;\A&quot;</span>;</span><br><span class="line">  <span class="attribute">white-space</span>: pre;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dt</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dd</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">0.25em</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>选择器的奥妙 细细品味吧 这里不多说了</p>
+<h1 id="实现我们文本的斑马纹"><a href="#实现我们文本的斑马纹" class="headerlink" title="实现我们文本的斑马纹"></a>实现我们文本的斑马纹</h1><p>其实就是实现代码高亮的效果 但是不是文字颜色的变化 而是我们的背景的斑马条纹 下面直接上效果</p>
+<p id="test23">
+        while.br <br />
+        hahhab <br />
+        int a <br />
+        hhsihs <br />
+</p>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">  <span class="attribute">background</span>: beige;</span><br><span class="line">  <span class="attribute">background-size</span>: auto <span class="number">3em</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.2</span>) <span class="number">50%</span>, transparent <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里面运用到了比较重要的思想就是 我们背景的自适应</p>
+<table>
+<thead>
+<tr>
+<th align="center">值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">normal</td>
+<td align="center">默认 设置合理的行间距</td>
+</tr>
+<tr>
+<td align="center">length</td>
+<td align="center">设置固定的行间距 px 啥的</td>
+</tr>
+<tr>
+<td align="center">% 百分比</td>
+<td align="center">你懂得</td>
+</tr>
+<tr>
+<td align="center">数字 number</td>
+<td align="center">设置数字，此数字会与当前的字体尺寸相乘来设置行间距。</td>
+</tr>
+</tbody></table>
+<ol>
+<li>首先设置我们的行高是我们字体大小的 1.5 倍</li>
+<li>背景颜色首先设置平铺</li>
+<li>背景的大小 我们设置为我们的可以重复的片段 这里的高度是 3em 因为字体大小是 1em 行高是 1.5 字体大小 那就是 1.5em 两行一个重复 那就是 3em 啦</li>
+</ol>
+<h1 id="tab-size"><a href="#tab-size" class="headerlink" title="tab-size"></a>tab-size</h1><p>我们的浏览器默认的 tab 字符是 8 宽度 所以在 pre 标签和 code 标签之内 慎用 tab 但是我们可以用 css 直接给你格式化咯<br>但是貌似我的浏览器不太支持</p>
+<h1 id="用户体验之按钮热区域扩大"><a href="#用户体验之按钮热区域扩大" class="headerlink" title="用户体验之按钮热区域扩大"></a>用户体验之按钮热区域扩大</h1><p>热区域就是我们的鼠标可以点击的区域 我们用户的可点击范围应该是比我们视觉要宽的 这个法则叫做 Fitts 法则</p>
+<blockquote>
+<p>Fitts 法则 人类移动到某个目标区域所需的最短时间是巴拉巴拉 意思就是必须扩张热区域</p>
+</blockquote>
+<p>我们具体是怎么实现的呢</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test24</span> &#123;</span><br><span class="line">  <span class="attribute">background-clip</span>: content-box;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: burlywood;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span> <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">35px</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">80px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">15px</span> solid transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><button id="test24">wdnmd</button></p>
+<p>我们其实就是实现了一个 transparent 的边框 然后这里的重点就是我们设置了背景不是默认的 border-box 了 而是我们的 content-box 这样的话 我们的 border 就不会显示我们的背景颜色了</p>
+<h1 id="实现自定义-checkbox"><a href="#实现自定义-checkbox" class="headerlink" title="实现自定义 checkbox"></a>实现自定义 checkbox</h1><p>下面我们先补充一下 css 的属性 clip<br>这个属性就是对元素进行剪切 上右下左 相对于左上角画一个矩形进行裁剪 下面直接上代码</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute; <span class="comment">/*这两行实现了隐藏效果 以后就这么干就行了 原理太奇怪了这样这个元素只会隐藏 而且tab键进行下一个的时候可以访问到*/</span></span><br><span class="line">  <span class="attribute">clip</span>: <span class="built_in">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span> + <span class="selector-tag">label</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;\a0&quot;</span>; <span class="comment">/*空格*/</span></span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0.8em</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0.8em</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">0.2em</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">0.2em</span>;</span><br><span class="line">  <span class="attribute">background</span>: silver;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">0.65</span>;</span><br><span class="line">  <span class="attribute">text-indent</span>: <span class="number">0.15em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span><span class="selector-pseudo">:checked</span> + <span class="selector-tag">label</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;\2713&quot;</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellowgreen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体效果是（点点看）<br><input type="checkbox" id="good" /> <label for="good">wdnmd</label></p>
+<h1 id="弹窗"><a href="#弹窗" class="headerlink" title="弹窗"></a>弹窗</h1><p>！！！ 这里是我一直想学的 认真听!</p>
+<p><button class="popButton" onclick="popOut()">点点看</button></p>
+<div class="popBoxLayer">
+      <div class="popBoxContainer" id="aaa">
+        <div class="popBoxHeader">
+          <span>This is a head</span>
+          <button class="closeButton" onclick="popIn()">X</button>
+        </div>
+        <div class="popBoxContent">
+          <p>wdnmd good very good</p>
+        </div>
+      </div>
+    </div>
+
+<p>下面上代码哦</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.popBoxContainer</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">11</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">rgb</span>(<span class="number">78</span>, <span class="number">201</span>, <span class="number">180</span>);</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">30%</span>;</span><br><span class="line">  <span class="attribute">animation</span>: topDown <span class="number">0.4s</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.popBoxHeader</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: rosybrown;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: row;</span><br><span class="line">  <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.popBoxLayer</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.3</span>);</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是设置背景直接填满 然后需要注意的就是 position fixed 然后从左上角开始 这个 layer<br>这个 layer 可以嵌套也可以进行单独独立出来 反正就是用于阻断用户和背景的交互</p>
+<p>再加上一点 js 代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> popButton = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;popButton&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> closeButton = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;closeButton&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> card = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;popBoxContainer&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> layer = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;popBoxLayer&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popOut</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  layer[<span class="number">0</span>].style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">  card[<span class="number">0</span>].style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popIn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  layer[<span class="number">0</span>].style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">  card[<span class="number">0</span>].style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单的啦</p>
 
     </div>
 
@@ -415,7 +595,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%A7%E6%8A%95%E5%BD%B1%E5%92%8C%E5%8F%8C%E4%BE%A7%E6%8A%95%E5%BD%B1"><span class="nav-number">1.</span> <span class="nav-text">单侧投影和双侧投影</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%89%B2%E8%B0%83%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86-hover-%E6%81%A2%E5%A4%8D"><span class="nav-number">2.</span> <span class="nav-text">实现主色调图片处理 hover 恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%9B%E7%8E%BB%E7%92%83%E6%95%88%E6%9E%9C-%E6%84%9F%E8%A7%89%E5%83%8F%E6%98%AF%E4%B8%80%E5%B1%82%E7%8E%BB%E7%92%83"><span class="nav-number">3.</span> <span class="nav-text">毛玻璃效果 感觉像是一层玻璃</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B9%A6%E9%A1%B5%E6%8A%98%E8%A7%92"><span class="nav-number">4.</span> <span class="nav-text">实现书页折角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A7%E5%A6%99%E5%88%A9%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E8%BF%9B%E8%A1%8C%E6%8D%A2%E8%A1%8C%E7%AD%89%E5%B8%83%E5%B1%80"><span class="nav-number">5.</span> <span class="nav-text">巧妙利用选择器进行换行等布局</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%A7%E6%8A%95%E5%BD%B1%E5%92%8C%E5%8F%8C%E4%BE%A7%E6%8A%95%E5%BD%B1"><span class="nav-number">1.</span> <span class="nav-text">单侧投影和双侧投影</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%BB%E8%89%B2%E8%B0%83%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86-hover-%E6%81%A2%E5%A4%8D"><span class="nav-number">2.</span> <span class="nav-text">实现主色调图片处理 hover 恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%9B%E7%8E%BB%E7%92%83%E6%95%88%E6%9E%9C-%E6%84%9F%E8%A7%89%E5%83%8F%E6%98%AF%E4%B8%80%E5%B1%82%E7%8E%BB%E7%92%83"><span class="nav-number">3.</span> <span class="nav-text">毛玻璃效果 感觉像是一层玻璃</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B9%A6%E9%A1%B5%E6%8A%98%E8%A7%92"><span class="nav-number">4.</span> <span class="nav-text">实现书页折角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A7%E5%A6%99%E5%88%A9%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E8%BF%9B%E8%A1%8C%E6%8D%A2%E8%A1%8C%E7%AD%89%E5%B8%83%E5%B1%80"><span class="nav-number">5.</span> <span class="nav-text">巧妙利用选择器进行换行等布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%88%91%E4%BB%AC%E6%96%87%E6%9C%AC%E7%9A%84%E6%96%91%E9%A9%AC%E7%BA%B9"><span class="nav-number">6.</span> <span class="nav-text">实现我们文本的斑马纹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tab-size"><span class="nav-number">7.</span> <span class="nav-text">tab-size</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E4%B9%8B%E6%8C%89%E9%92%AE%E7%83%AD%E5%8C%BA%E5%9F%9F%E6%89%A9%E5%A4%A7"><span class="nav-number">8.</span> <span class="nav-text">用户体验之按钮热区域扩大</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox"><span class="nav-number">9.</span> <span class="nav-text">实现自定义 checkbox</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%B9%E7%AA%97"><span class="nav-number">10.</span> <span class="nav-text">弹窗</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -477,7 +657,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
