@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="响应式布局的宽度自适应我们的容器的高度 如果不对高度进行设置的话 那么默认的高度就是 content 的高度那么宽度呢？ 因为 blok 和 inline-block 的存在 宽度可以是无限延伸的 那么宽度的自动适应就需要使用我们的一个很少使用的值了 123div &amp;#123;  max-width: min-content;&amp;#125;  最大宽度就是 不可以断行的最大元素的宽度 多个元素的时候">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS之排版布局和动画效果">
+<meta property="og:url" content="http://example.com/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="Dream Starts Here">
+<meta property="og:description" content="响应式布局的宽度自适应我们的容器的高度 如果不对高度进行设置的话 那么默认的高度就是 content 的高度那么宽度呢？ 因为 blok 和 inline-block 的存在 宽度可以是无限延伸的 那么宽度的自动适应就需要使用我们的一个很少使用的值了 123div &amp;#123;  max-width: min-content;&amp;#125;  最大宽度就是 不可以断行的最大元素的宽度 多个元素的时候">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/animation1.png">
+<meta property="og:image" content="http://example.com/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/animation2.png">
+<meta property="article:published_time" content="2021-01-06T03:13:14.000Z">
+<meta property="article:modified_time" content="2021-01-06T13:00:28.634Z">
+<meta property="article:author" content="Zhongsihui">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/animation1.png">
+
+<link rel="canonical" href="http://example.com/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>CSS之排版布局和动画效果 | Dream Starts Here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Dream Starts Here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhongsihui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dream Starts Here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS之排版布局和动画效果
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-06 11:13:14 / Modified: 21:00:28" itemprop="dateCreated datePublished" datetime="2021-01-06T11:13:14+08:00">2021-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="响应式布局的宽度自适应"><a href="#响应式布局的宽度自适应" class="headerlink" title="响应式布局的宽度自适应"></a>响应式布局的宽度自适应</h1><p>我们的容器的高度 如果不对高度进行设置的话 那么默认的高度就是 content 的高度<br>那么宽度呢？ 因为 blok 和 inline-block 的存在 宽度可以是无限延伸的 那么宽度的自动适应就需要使用我们的一个很少使用的值了</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">max-width</span>: min-content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最大宽度就是 不可以断行的最大元素的宽度</p>
+<h1 id="多个元素的时候对兄弟元素的样式进行设置"><a href="#多个元素的时候对兄弟元素的样式进行设置" class="headerlink" title="多个元素的时候对兄弟元素的样式进行设置"></a>多个元素的时候对兄弟元素的样式进行设置</h1><p>有一个特殊选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:only-child</span> &#123;</span><br><span class="line">  <span class="comment">/*只有一个li的时候的样式*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里总结一下我们的伪类选择器</p>
+<table>
+<thead>
+<tr>
+<th align="center">选择器</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">li:first-child</td>
+<td align="center">选择属于当前父元素的 li 子元素的第一个</td>
+</tr>
+<tr>
+<td align="center">li:nth:child(odd)</td>
+<td align="center">选择每奇数个子元素</td>
+</tr>
+<tr>
+<td align="center">li:nth:last-child(odd)</td>
+<td align="center">倒数第几个元素</td>
+</tr>
+</tbody></table>
+<p>这里要注意 是没有正数第几个元素的</p>
+<p>还有我们的 nth 标签 这种寻择器我们之前都理解错了！！！！！！<br>我们理解的是 当前的标签下面的我们选择的标签 如果是对应的标签那么就加上对应的样式 如果不是 那么就不会起作用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>41556<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>1231<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>11<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>121<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>45<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>121<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果用上了 nth-child(odd) 那么奇数个就会被加上样式 也就是说 他会选择当前的直接父元素下面的选定的第几个元素 然后加上对应的样式 这个伪类选择器还可以叠加使用 下面来点例子</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(4)</span> &#123;</span><br><span class="line">  <span class="comment">/*就可以当元素只有四个的时候就会选择第一个元素*/</span></span><br><span class="line">  <span class="comment">/*这里就可以实现 只有四个元素的时候就加上相应的样式*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="前置选择器"><a href="#前置选择器" class="headerlink" title="前置选择器"></a>前置选择器</h2><p>span ~ li<br>这个选择器 会选择前面有 span 标签的所有 li 标签</p>
+<blockquote>
+<p>这里面的隐藏的特性也有范围选择器比如说 li:nth-child(n+4) 这个就是会选择第四个元素以后的 包括第四个元素 然后给他们加上样式 这个数字的计数 跟我们上面的一样 也会选择当前的子元素 然后如果不符合 那么就不会加上样式 这里还有一点就是嵌套的元素 那么里面的元素会在倒数的第一个 比如说 div 里面有一个 li 那么 li 的 last 1 就是里面的 li 而不是外面的 div</p>
+</blockquote>
+<p>这个语法糖的本质就是 括号里面原来只接受的是数字 然后如果 n+4 n 的取值就会从 0 开始逐项递增 相当于</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(n+4)</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(4)</span>  <span class="comment">/*也就是说 如果当前的项只有在4项的时候才会选择出想要的项*/</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(5)</span>  <span class="comment">/*只有5项*/</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(6)</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(7)</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(8)</span></span><br><span class="line"><span class="comment">/*因为n很大 所以总共有多少项都可以找到相应的CSS的代码  这样后面的都可以加上样式*/</span></span><br></pre></td></tr></table></figure>
+
+<p>具体的最大值我们也不知道 反正也不可能有这么多数字</p>
+<h1 id="垂直居中-定位-absolute-和-relative-的坑"><a href="#垂直居中-定位-absolute-和-relative-的坑" class="headerlink" title="垂直居中 定位 absolute 和 relative 的坑"></a>垂直居中 定位 absolute 和 relative 的坑</h1><p>我们常说的定位 并不是以我们的元素的中心定位的 而是以元素的左上角定位的<br>这个时候 如果一个盒子有高度和宽度的话 那么 设置定位是 50% 50% 那么就是这个盒子的左上角在这个地方 并不是盒子的中间在这个地方</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red; <span class="comment">/*比如这里面 如果我想给这个盒子布局在整个元素的中央的话 那么这个50% 就会让元素盒子的左上角在元素的中央 那么就不是我们期望的效果了  这个时候应该加上我们的transform  对元素进行平移  这个时候 平移的div在布局上面的位置就是平移之后的位置*/</span></span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动画的调动函数"><a href="#动画的调动函数" class="headerlink" title="动画的调动函数"></a>动画的调动函数</h1><p>首先我们做个球 这里球的立体感是这样实现的</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ball</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: black;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(circle at <span class="number">30px</span> <span class="number">30px</span>, #<span class="number">5</span>cbaff, #<span class="number">000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后加上我们的动画</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> bounce &#123;</span><br><span class="line">  60%,</span><br><span class="line">  80%,</span><br><span class="line">  <span class="selector-tag">to</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">350px</span>);</span><br><span class="line">    <span class="attribute">animation-timing-function</span>: ease-out;</span><br><span class="line">  &#125;</span><br><span class="line">  70% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">250px</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  90% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">300px</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">450px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(</span><br><span class="line">    to bottom,</span><br><span class="line">    #<span class="number">5</span>cbaff <span class="number">30%</span>,</span><br><span class="line">    rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>) <span class="number">50%</span>,</span><br><span class="line">    <span class="number">#5cbaff</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.ball</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: black;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(circle at <span class="number">30px</span> <span class="number">30px</span>, #<span class="number">5</span>cbaff, #<span class="number">000</span>);</span><br><span class="line">  <span class="attribute">animation</span>: bounce <span class="number">3s</span> infinite;</span><br><span class="line">  <span class="attribute">animation-timing-function</span>: ease-in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后的效果就是</p>
+<style>
+      @keyframes bounce {
+        60%,
+        80%,
+        to {
+          transform: translateY(350px);
+          animation-timing-function: ease-out;
+        }
+        70% {
+          transform: translateY(250px);
+        }
+        90% {
+          transform: translateY(300px);
+        }
+      }
+      .ball_container {
+        height: 450px;
+        width: 120px;
+        background: linear-gradient(
+          to bottom,
+          #5cbaff 30%,
+          rgba(0, 0, 0, 0) 50%,
+          #5cbaff
+        );
+      }
+      .ball {
+        margin: auto;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        background-color: black;
+        background: radial-gradient(circle at 30px 30px, #5cbaff, #000);
+        animation: bounce 3s infinite;
+        animation-timing-function: ease-in;
+      }
+    </style>
+<div class="ball_container">
+      <div class="ball"></div>
+</div>
+
+<h1 id="keyframe的用法"><a href="#keyframe的用法" class="headerlink" title="keyframe的用法"></a>keyframe的用法</h1><p>每一个不同的frame就是不同状态下面对应的css状态<br>比如说<br>@keyframes bounce {<br>    60%,<br>    80%,<br>    to {<br>        transform: translateY(350px);<br>        animation-timing-function: ease-out;<br>    }<br>    70% {<br>        transform: translateY(250px);<br>    }<br>    90% {<br>        transform: translateY(300px);<br>    }<br>}<br>也就是从一开始 的不同的状态 然后经过animation算法 就可以得到平滑的动画<br>这里面的比较难以理解的就是 里面的to 就是100%的缩写  from就是0% 的缩写</p>
+<h1 id="keyfram的animation-timing-function"><a href="#keyfram的animation-timing-function" class="headerlink" title="keyfram的animation-timing-function"></a>keyfram的animation-timing-function</h1><p>下面直接上图片吧</p>
+<img src="/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/animation1.png" class="" title="This is an example image">
+<img src="/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/animation2.png" class="" title="This is an example image">
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91Prim%E7%AE%97%E6%B3%95%E5%92%8C%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5/" rel="prev" title="数据结构与算法之最小生成树Prim算法和图的概念">
+      <i class="fa fa-chevron-left"></i> 数据结构与算法之最小生成树Prim算法和图的概念
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%E7%9A%84%E5%AE%BD%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94"><span class="nav-number">1.</span> <span class="nav-text">响应式布局的宽度自适应</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E6%97%B6%E5%80%99%E5%AF%B9%E5%85%84%E5%BC%9F%E5%85%83%E7%B4%A0%E7%9A%84%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">多个元素的时候对兄弟元素的样式进行设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">前置选择器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD-%E5%AE%9A%E4%BD%8D-absolute-%E5%92%8C-relative-%E7%9A%84%E5%9D%91"><span class="nav-number">3.</span> <span class="nav-text">垂直居中 定位 absolute 和 relative 的坑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB%E7%9A%84%E8%B0%83%E5%8A%A8%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">动画的调动函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#keyframe%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">keyframe的用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#keyfram%E7%9A%84animation-timing-function"><span class="nav-number">6.</span> <span class="nav-text">keyfram的animation-timing-function</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhongsihui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhongsihui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhongsh57" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhongsh57" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:839518416@qq.com" title="E-Mail → mailto:839518416@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhongsihui</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -178,6 +178,172 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhongsihui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dream Starts Here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">CSS之排版布局和动画效果</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-06 11:13:14 / Modified: 21:00:28" itemprop="dateCreated datePublished" datetime="2021-01-06T11:13:14+08:00">2021-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="响应式布局的宽度自适应"><a href="#响应式布局的宽度自适应" class="headerlink" title="响应式布局的宽度自适应"></a>响应式布局的宽度自适应</h1><p>我们的容器的高度 如果不对高度进行设置的话 那么默认的高度就是 content 的高度<br>那么宽度呢？ 因为 blok 和 inline-block 的存在 宽度可以是无限延伸的 那么宽度的自动适应就需要使用我们的一个很少使用的值了</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">max-width</span>: min-content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最大宽度就是 不可以断行的最大元素的宽度</p>
+<h1 id="多个元素的时候对兄弟元素的样式进行设置"><a href="#多个元素的时候对兄弟元素的样式进行设置" class="headerlink" title="多个元素的时候对兄弟元素的样式进行设置"></a>多个元素的时候对兄弟元素的样式进行设置</h1><p>有一个特殊选择器</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:only-child</span> &#123;</span><br><span class="line">  <span class="comment">/*只有一个li的时候的样式*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里总结一下我们的伪类选择器</p>
+<table>
+<thead>
+<tr>
+<th align="center">选择器</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">li:first-child</td>
+<td align="center">选择属于当前父元素的 li 子元素的第一个</td>
+</tr>
+<tr>
+<td align="center">li:nth:child(odd)</td>
+<td align="center">选择每奇数个子元素</td>
+</tr>
+<tr>
+<td align="center">li:nth:last-child(odd)</td>
+<td align="center">倒数第几个元素</td>
+</tr>
+</tbody></table>
+<p>这里要注意 是没有正数第几个元素的</p>
+<p>还有我们的 nth 标签 这种寻择器我们之前都理解错了！！！！！！<br>我们理解的是 当前的标签下面的我们选择的标签 如果是对应的标签那么就加上对应的样式 如果不是 那么就不会起作用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>41556<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>1231<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>11<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>121<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>45<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>121<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果用上了 nth-child(odd) 那么奇数个就会被加上样式 也就是说 他会选择当前的直接父元素下面的选定的第几个元素 然后加上对应的样式 这个伪类选择器还可以叠加使用 下面来点例子</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(4)</span> &#123;</span><br><span class="line">  <span class="comment">/*就可以当元素只有四个的时候就会选择第一个元素*/</span></span><br><span class="line">  <span class="comment">/*这里就可以实现 只有四个元素的时候就加上相应的样式*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="前置选择器"><a href="#前置选择器" class="headerlink" title="前置选择器"></a>前置选择器</h2><p>span ~ li<br>这个选择器 会选择前面有 span 标签的所有 li 标签</p>
+<blockquote>
+<p>这里面的隐藏的特性也有范围选择器比如说 li:nth-child(n+4) 这个就是会选择第四个元素以后的 包括第四个元素 然后给他们加上样式 这个数字的计数 跟我们上面的一样 也会选择当前的子元素 然后如果不符合 那么就不会加上样式 这里还有一点就是嵌套的元素 那么里面的元素会在倒数的第一个 比如说 div 里面有一个 li 那么 li 的 last 1 就是里面的 li 而不是外面的 div</p>
+</blockquote>
+<p>这个语法糖的本质就是 括号里面原来只接受的是数字 然后如果 n+4 n 的取值就会从 0 开始逐项递增 相当于</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(n+4)</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(4)</span>  <span class="comment">/*也就是说 如果当前的项只有在4项的时候才会选择出想要的项*/</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(5)</span>  <span class="comment">/*只有5项*/</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(6)</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(7)</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(8)</span></span><br><span class="line"><span class="comment">/*因为n很大 所以总共有多少项都可以找到相应的CSS的代码  这样后面的都可以加上样式*/</span></span><br></pre></td></tr></table></figure>
+
+<p>具体的最大值我们也不知道 反正也不可能有这么多数字</p>
+<h1 id="垂直居中-定位-absolute-和-relative-的坑"><a href="#垂直居中-定位-absolute-和-relative-的坑" class="headerlink" title="垂直居中 定位 absolute 和 relative 的坑"></a>垂直居中 定位 absolute 和 relative 的坑</h1><p>我们常说的定位 并不是以我们的元素的中心定位的 而是以元素的左上角定位的<br>这个时候 如果一个盒子有高度和宽度的话 那么 设置定位是 50% 50% 那么就是这个盒子的左上角在这个地方 并不是盒子的中间在这个地方</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red; <span class="comment">/*比如这里面 如果我想给这个盒子布局在整个元素的中央的话 那么这个50% 就会让元素盒子的左上角在元素的中央 那么就不是我们期望的效果了  这个时候应该加上我们的transform  对元素进行平移  这个时候 平移的div在布局上面的位置就是平移之后的位置*/</span></span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动画的调动函数"><a href="#动画的调动函数" class="headerlink" title="动画的调动函数"></a>动画的调动函数</h1><p>首先我们做个球 这里球的立体感是这样实现的</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ball</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: black;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(circle at <span class="number">30px</span> <span class="number">30px</span>, #<span class="number">5</span>cbaff, #<span class="number">000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后加上我们的动画</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> bounce &#123;</span><br><span class="line">  60%,</span><br><span class="line">  80%,</span><br><span class="line">  <span class="selector-tag">to</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">350px</span>);</span><br><span class="line">    <span class="attribute">animation-timing-function</span>: ease-out;</span><br><span class="line">  &#125;</span><br><span class="line">  70% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">250px</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  90% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">300px</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">450px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(</span><br><span class="line">    to bottom,</span><br><span class="line">    #<span class="number">5</span>cbaff <span class="number">30%</span>,</span><br><span class="line">    rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>) <span class="number">50%</span>,</span><br><span class="line">    <span class="number">#5cbaff</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.ball</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: black;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(circle at <span class="number">30px</span> <span class="number">30px</span>, #<span class="number">5</span>cbaff, #<span class="number">000</span>);</span><br><span class="line">  <span class="attribute">animation</span>: bounce <span class="number">3s</span> infinite;</span><br><span class="line">  <span class="attribute">animation-timing-function</span>: ease-in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后的效果就是</p>
+<style>
+      @keyframes bounce {
+        60%,
+        80%,
+        to {
+          transform: translateY(350px);
+          animation-timing-function: ease-out;
+        }
+        70% {
+          transform: translateY(250px);
+        }
+        90% {
+          transform: translateY(300px);
+        }
+      }
+      .ball_container {
+        height: 450px;
+        width: 120px;
+        background: linear-gradient(
+          to bottom,
+          #5cbaff 30%,
+          rgba(0, 0, 0, 0) 50%,
+          #5cbaff
+        );
+      }
+      .ball {
+        margin: auto;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        background-color: black;
+        background: radial-gradient(circle at 30px 30px, #5cbaff, #000);
+        animation: bounce 3s infinite;
+        animation-timing-function: ease-in;
+      }
+    </style>
+<div class="ball_container">
+      <div class="ball"></div>
+</div>
+
+<h1 id="keyframe的用法"><a href="#keyframe的用法" class="headerlink" title="keyframe的用法"></a>keyframe的用法</h1><p>每一个不同的frame就是不同状态下面对应的css状态<br>比如说<br>@keyframes bounce {<br>    60%,<br>    80%,<br>    to {<br>        transform: translateY(350px);<br>        animation-timing-function: ease-out;<br>    }<br>    70% {<br>        transform: translateY(250px);<br>    }<br>    90% {<br>        transform: translateY(300px);<br>    }<br>}<br>也就是从一开始 的不同的状态 然后经过animation算法 就可以得到平滑的动画<br>这里面的比较难以理解的就是 里面的to 就是100%的缩写  from就是0% 的缩写</p>
+<h1 id="keyfram的animation-timing-function"><a href="#keyfram的animation-timing-function" class="headerlink" title="keyfram的animation-timing-function"></a>keyfram的animation-timing-function</h1><p>下面直接上图片吧</p>
+<img src="/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/animation1.png" class="" title="This is an example image">
+<img src="/2021/01/06/CSS%E4%B9%8B%E6%8E%92%E7%89%88%E5%B8%83%E5%B1%80/animation2.png" class="" title="This is an example image">
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91Prim%E7%AE%97%E6%B3%95%E5%92%8C%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -273,7 +439,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -287,7 +453,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/" class="post-title-link" itemprop="url">CSS之视觉效果和字体排印和用户体验</a>
+            <a href="/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/" class="post-title-link" itemprop="url">CSS之视觉效果和字体排印和用户体验</a>
         </h2>
 
         <div class="post-meta">
@@ -304,7 +470,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-05 21:43:40" itemprop="dateModified" datetime="2021-01-05T21:43:40+08:00">2021-01-05</time>
+                <time title="Modified: 2021-01-06 21:04:03" itemprop="dateModified" datetime="2021-01-06T21:04:03+08:00">2021-01-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -467,7 +633,7 @@ input[type="checkbox"]:checked + label::before {
 
 <p>这里面的华点就是我们的 blend-mode 意思就是我们的背景就是可以混合模式 颜色和图片混合在一起</p>
 <h1 id="毛玻璃效果-感觉像是一层玻璃"><a href="#毛玻璃效果-感觉像是一层玻璃" class="headerlink" title="毛玻璃效果 感觉像是一层玻璃"></a>毛玻璃效果 感觉像是一层玻璃</h1><p>先上效果图</p>
-<img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maoboli.png" class="" title="This is an example image">
+<img src="/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maoboli.png" class="" title="This is an example image">
 
 <p>下面上代码</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#test15</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">z-index</span>: -<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(./temp/avatar.jpg) <span class="number">0</span> / cover fixed;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#test16</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">90px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">hsla</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100%</span>, <span class="number">0.3</span>);</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#test16</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">z-index</span>: -<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin</span>: -<span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(./temp/avatar.jpg) <span class="number">0</span> / cover fixed;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">blur</span>(<span class="number">7px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -524,7 +690,7 @@ input[type="checkbox"]:checked + label::before {
 <p>这里有一个需要注意的点就是 如果我们有多个背景图片 那么先声明的会覆盖在后声明的上面 不信你改动这两个位置试试</p>
 </blockquote>
 <h1 id="巧妙利用选择器进行换行等布局"><a href="#巧妙利用选择器进行换行等布局" class="headerlink" title="巧妙利用选择器进行换行等布局"></a>巧妙利用选择器进行换行等布局</h1><p>这里拿的是我们的自定义表格<br>如果我们要实现下面的情况</p>
-<img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/biaoge.png" class="" title="This is an example image">
+<img src="/2020/12/29/css%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/biaoge.png" class="" title="This is an example image">
 
 <p>怎么实现呢？ 我们的 dt 和 dd 都是 block 元素 默认换行 所以直接上下面的代码 细细品味吧</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dt</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;\A&quot;</span>;</span><br><span class="line">  <span class="attribute">white-space</span>: pre;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dt</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dd</span> + <span class="selector-tag">dd</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">0.25em</span>;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -617,6 +783,7 @@ input[type="checkbox"]:checked + label::before {
   }
   #below > img {
     filter: blur(2px);
+    margin-bottom:0;
   }
   #over {
     position: absolute;
@@ -638,12 +805,12 @@ input[type="checkbox"]:checked + label::before {
   <div id="over">
     <img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maliao.png" alt="" id="overimg"/>
   </div>
-  <img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maliao.png" alt="" />
+  <img src="/2020/12/29/CSS%E4%B9%8B%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/maliao.png" alt="" class="belowimg"/>
 </div>
 
 <p>前半张图 右下角可以调整大小哦</p>
 <blockquote>
-<p>这里加上一个小提示  首先我们盒子的高度 不去设置他的高度 那么高度就是默认为content的高度<br>还有一点就是  如果一个属性你要让他消失 相当于在chrome的开发者工具里面取消勾选 那么可以考虑设置为none</p>
+<p>这里加上一个小提示 首先我们盒子的高度 不去设置他的高度 那么高度就是默认为 content 的高度<br>还有一点就是 如果一个属性你要让他消失 相当于在 chrome 的开发者工具里面取消勾选 那么可以考虑设置为 none</p>
 </blockquote>
 
       
@@ -1649,80 +1816,6 @@ This is a diamond
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%A0%91%E8%A1%A5%E5%85%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Zhongsihui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dream Starts Here">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%A0%91%E8%A1%A5%E5%85%85/" class="post-title-link" itemprop="url">数据结构与算法之二叉树补充</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-12-09 23:50:31 / Modified: 23:59:34" itemprop="dateCreated datePublished" datetime="2020-12-09T23:50:31+08:00">2020-12-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天翻看代码 发现二叉树的三种遍历还没怼上去 这里说的都是非递归版本 别问 问就是上流 这里补充一下  顺便总结一下最近的烂东西</p>
-<h1 id="二叉树的前序遍历"><a href="#二叉树的前序遍历" class="headerlink" title="二叉树的前序遍历"></a>二叉树的前序遍历</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> preorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">let</span> s = [];</span><br><span class="line">    <span class="keyword">let</span> move = root;</span><br><span class="line">    <span class="keyword">while</span> (move || s.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (move) &#123;</span><br><span class="line">            res.push(move.val);</span><br><span class="line">            s.push(move);</span><br><span class="line">            move = move.left;</span><br><span class="line">        &#125;</span><br><span class="line">        move = s.pop();</span><br><span class="line"></span><br><span class="line">        move = move.right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="二叉树的中序遍历"><a href="#二叉树的中序遍历" class="headerlink" title="二叉树的中序遍历"></a>二叉树的中序遍历</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">let</span> s = [];</span><br><span class="line">    <span class="keyword">let</span> move = root;</span><br><span class="line">    <span class="keyword">while</span> (move || s.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (move) &#123;</span><br><span class="line">            s.push(move);</span><br><span class="line">            move = move.left;</span><br><span class="line">        &#125;</span><br><span class="line">        move = s.pop();</span><br><span class="line">        res.push(move.val);</span><br><span class="line">        move = move.right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="二叉树的后序遍历"><a href="#二叉树的后序遍历" class="headerlink" title="二叉树的后序遍历"></a>二叉树的后序遍历</h1><p>这里面有两种方法 两种都是基于栈 这里面因为是后序遍历  我们需要记录当前的点是否已经被访问过  这里有两种方法 一种是增加一个last指针 另外一种就是push两次  pop的时候判断是不是在栈里面 直接上代码</p>
-<h2 id="基于last指针的后续遍历"><a href="#基于last指针的后续遍历" class="headerlink" title="基于last指针的后续遍历"></a>基于last指针的后续遍历</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">let</span> s = [];</span><br><span class="line">    <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">let</span> last = root;</span><br><span class="line">    <span class="keyword">let</span> move = root;</span><br><span class="line">    s.push(move);</span><br><span class="line">    <span class="keyword">while</span> (s.length != <span class="number">0</span>) &#123;</span><br><span class="line">        move = s[s.length - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> ((move.left === <span class="literal">null</span> &amp;&amp; move.right === <span class="literal">null</span>) || (last == move.left &amp;&amp; move.right === <span class="literal">null</span>) || last == move.right) &#123;</span><br><span class="line">            res.push(move.val);</span><br><span class="line">            last = move;</span><br><span class="line">            s.pop();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (move.right) &#123;</span><br><span class="line">                s.push(move.right);    <span class="comment">//这里注意 因为是后序遍历 先访问左边 再是右边 所以栈顶应该是左边  所以左边后入栈</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (move.left) &#123;</span><br><span class="line">                s.push(move.left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="基于双push-pop的后续遍历"><a href="#基于双push-pop的后续遍历" class="headerlink" title="基于双push pop的后续遍历"></a>基于双push pop的后续遍历</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal_two_push = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">let</span> s = [];</span><br><span class="line">    <span class="keyword">let</span> move = root;</span><br><span class="line">    <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> [];    <span class="comment">//这一行的作用是 如果是空的 那么root进栈之后 访问他的left就会出错  因为null没有left</span></span><br><span class="line">    s.push(root);</span><br><span class="line">    s.push(root);</span><br><span class="line">    <span class="keyword">while</span> (s.length != <span class="number">0</span>) &#123;</span><br><span class="line">        move = s.pop();</span><br><span class="line">        <span class="keyword">if</span> (move != s[s.length - <span class="number">1</span>] || s.length == <span class="number">0</span>) &#123;</span><br><span class="line">            res.push(move.val);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (move.right) &#123;           <span class="comment">//没错 就是这里</span></span><br><span class="line">                s.push(move.right);    </span><br><span class="line">                s.push(move.right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (move.left) &#123;</span><br><span class="line">                s.push(move.left);      <span class="comment">//注意 这里也是right先进栈  然后 left再进  </span></span><br><span class="line">                s.push(move.left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="这里说一下前端CSS的flex"><a href="#这里说一下前端CSS的flex" class="headerlink" title="这里说一下前端CSS的flex"></a>这里说一下前端CSS的flex</h1><p>如果是左右布局 一左一右  左边的宽度需要自适应 参考如下代码</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h3</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">  .left&#123;</span><br><span class="line">    <span class="selector-tag">flex</span>: 1;</span><br><span class="line">    <span class="selector-tag">margin-right</span><span class="selector-pseudo">:auto</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.right</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20%</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1794,7 +1887,7 @@ This is a diamond
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
